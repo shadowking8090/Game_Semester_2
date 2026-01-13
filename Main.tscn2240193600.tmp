@@ -28,18 +28,14 @@ color = Color(0.722879, 0.969338, 0.66556, 1)
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_uu6xs")
 script = ExtResource("1_uu6xs")
-follow_strength = 15.0
-lerp_speed = 5.0
-drag_damp = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(557.125, 102.625)
-scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_r0du0")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
 position = Vector2(557.5, 100.5)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.835938, 0.898438)
 texture = ExtResource("1_glv2v")
 
 [node name="Button" type="Button" parent="RigidBody2D"]
@@ -67,11 +63,6 @@ offset_left = 79.0
 offset_top = 274.0
 offset_right = 182.0
 offset_bottom = 383.0
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 326)
-scale = Vector2(-828.414, -486.098)
-zoom = Vector2(0.5, 0.5)
 
 [connection signal="button_down" from="RigidBody2D/Button" to="RigidBody2D" method="_on_button_button_down"]
 [connection signal="button_up" from="RigidBody2D/Button" to="RigidBody2D" method="_on_button_button_up"]
