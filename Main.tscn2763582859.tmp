@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnojvvnw37eyv"]
+
+[ext_resource type="Texture2D" uid="uid://do6jnsc0f1d2a" path="res://icon.svg" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://5f1u6jcaxkrl" path="res://rigid_body_2d.gd" id="1_uu6xs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu6xs"]
+size = Vector2(1161, 219)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
+size = Vector2(101.75, 112.75)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(583, 538)
+shape = SubResource("RectangleShape2D_uu6xs")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_top = 426.0
+offset_right = 1163.0
+offset_bottom = 646.0
+color = Color(0.722879, 0.969338, 0.66556, 1)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(-36, 197)
+input_pickable = true
+freeze_mode = 1
+script = ExtResource("1_uu6xs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(557.125, 102.625)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_r0du0")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(557.5, 100.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_glv2v")
