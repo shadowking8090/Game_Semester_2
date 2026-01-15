@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnojvvnw37eyv"]
+[gd_scene load_steps=4 format=3 uid="uid://bnojvvnw37eyv"]
 
+[ext_resource type="Texture2D" uid="uid://dj35mechai5fo" path="res://Sprites/Background.jpg" id="1_idj7w"]
 [ext_resource type="PackedScene" uid="uid://dh0skvbc2gj87" path="res://Scenes/character.tscn" id="3_kln2b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uu6xs"]
@@ -7,10 +8,9 @@ size = Vector2(1161, 219)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Character" parent="." instance=ExtResource("3_kln2b")]
-position = Vector2(111, -108)
-
 [node name="Map" type="Node2D" parent="."]
+position = Vector2(-2435, -1328)
+scale = Vector2(5, 5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Map"]
 position = Vector2(-18, 134)
@@ -65,3 +65,41 @@ offset_top = 426.0
 offset_right = 1163.0
 offset_bottom = 646.0
 color = Color(0.722879, 0.969338, 0.66556, 1)
+
+[node name="Background6" type="Sprite2D" parent="Map"]
+z_index = -2
+position = Vector2(1023.6, 291.4)
+scale = Vector2(0.208564, 1.00884)
+texture = ExtResource("1_idj7w")
+
+[node name="Background7" type="Sprite2D" parent="Map"]
+z_index = -2
+position = Vector2(835.414, 302)
+scale = Vector2(0.214797, 0.976105)
+texture = ExtResource("1_idj7w")
+
+[node name="Background8" type="Sprite2D" parent="Map"]
+z_index = -2
+position = Vector2(651.2, 297)
+scale = Vector2(0.208564, 0.968903)
+texture = ExtResource("1_idj7w")
+
+[node name="Background9" type="Sprite2D" parent="Map"]
+z_index = -2
+position = Vector2(464.8, 298.6)
+scale = Vector2(0.208564, 0.941407)
+texture = ExtResource("1_idj7w")
+
+[node name="Background10" type="Sprite2D" parent="Map"]
+z_index = -2
+position = Vector2(278.4, 300.4)
+scale = Vector2(0.208564, 0.95581)
+texture = ExtResource("1_idj7w")
+
+[node name="Background11" type="Sprite2D" parent="Map"]
+z_index = -2
+position = Vector2(92.6, 293.6)
+scale = Vector2(0.208564, 0.959738)
+texture = ExtResource("1_idj7w")
+
+[node name="Character" parent="." instance=ExtResource("3_kln2b")]

@@ -1,10 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://dh0skvbc2gj87"]
 
 [ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
-[ext_resource type="Texture2D" uid="uid://c303xp5vrs14n" path="res://Sprites/skull_in_a_ufo_spacecraft.png" id="2_ejsiy"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
 [ext_resource type="Script" uid="uid://r1acscn43sr8" path="res://Scenes/camera_2d.gd" id="4_nytcm"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ushfy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_owm7s"]
 size = Vector2(39.25, 34.25)
@@ -16,20 +17,16 @@ size = Vector2(39.5, 34.75)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(2, -1)
-input_pickable = true
-motion_mode = 1
-slide_on_ceiling = false
-wall_min_slide_angle = 3.14159
 script = ExtResource("1_lkv7d")
+speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(-2.5, 0.812507)
-scale = Vector2(0.0695542, 0.0780801)
-texture = ExtResource("2_ejsiy")
+position = Vector2(-2, 0.937501)
+scale = Vector2(38.75, 34.125)
+texture = SubResource("PlaceholderTexture2D_ushfy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(-2, 1)
-scale = Vector2(2.82497, 2.43269)
 shape = SubResource("RectangleShape2D_owm7s")
 
 [node name="Health" type="Node" parent="CharacterBody2D"]
@@ -45,20 +42,13 @@ metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
 position = Vector2(0.25, -0.375)
-scale = Vector2(2.82406, 2.41057)
 shape = SubResource("RectangleShape2D_nytcm")
 debug_color = Color(0.65448, 0.422062, 0.778429, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-zoom = Vector2(0.3, 0.3)
 position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_horizontal_offset = 0.4
-drag_vertical_offset = 0.4
-drag_left_margin = 0.4
-drag_top_margin = 0.4
-drag_right_margin = 0.4
-drag_bottom_margin = 0.4
 editor_draw_limits = true
 script = ExtResource("4_nytcm")
