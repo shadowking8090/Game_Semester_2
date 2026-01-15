@@ -4,6 +4,8 @@ var dragging = false
 var dragger
 var joint
 
+
+
 func _input_event(_Viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
@@ -28,3 +30,7 @@ func createDragger():
 	dragger.add_child(joint)
 	owner.add_child(dragger)
 	joint.node_a = dragger.get_path()
+
+
+func _on_health_health_depleted() -> void:
+	queue_free()

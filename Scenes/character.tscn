@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dh0skvbc2gj87"]
+
+[ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
+[ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
+[ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ushfy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owm7s"]
+size = Vector2(39.25, 34.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nytcm"]
+size = Vector2(39.5, 34.75)
+
+[node name="Character" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(2, -1)
+script = ExtResource("1_lkv7d")
+speed = 25
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-2, 0.937501)
+scale = Vector2(38.75, 34.125)
+texture = SubResource("PlaceholderTexture2D_ushfy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-2, 1)
+shape = SubResource("RectangleShape2D_owm7s")
+
+[node name="Health" type="Node" parent="CharacterBody2D"]
+script = ExtResource("2_ushfy")
+metadata/_custom_type_script = "uid://buap6fbjmegxf"
+
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(-2, 1)
+collision_layer = 7
+collision_mask = 0
+script = ExtResource("3_owm7s")
+metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(0.25, -0.375)
+shape = SubResource("RectangleShape2D_nytcm")
+debug_color = Color(0.65448, 0.422062, 0.778429, 0.42)
