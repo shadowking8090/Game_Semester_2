@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy65650du4ver"]
+
+[ext_resource type="Script" uid="uid://h7ibep5cswhc" path="res://Scripts/bullet.gd" id="1_oduel"]
+[ext_resource type="Texture2D" uid="uid://2x10ti2u24ng" path="res://Sprites/NES - Marble Madness - Miscellaneous - Miscellaneous.png" id="2_ycag2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6afsh"]
+radius = 50.0899
+
+[node name="bullet" type="Area2D"]
+script = ExtResource("1_oduel")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-15, -33)
+scale = Vector2(4.24194, 3.85087)
+texture = ExtResource("2_ycag2")
+hframes = 11
+vframes = 31
+frame = 126
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.99999, 1)
+scale = Vector2(6.675, 5.125)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_6afsh")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
