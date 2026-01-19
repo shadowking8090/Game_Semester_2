@@ -33,11 +33,13 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+
+
 func Move(delta):
 	var mouse_pos = get_global_mouse_position()
 	var dist = global_position.distance_to(mouse_pos)
 
-	if Input.is_action_pressed("mouse_left") and dist > 20:
+	if Input.is_action_pressed("mouse_left") and dist > 40:
 		var dir = global_position.direction_to(mouse_pos)
 		velocity = dir * speed
 	else:

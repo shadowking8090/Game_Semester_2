@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://djolt1ytty6t5"]
 
 [ext_resource type="Script" uid="uid://cte60jj8nmkd7" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://2x10ti2u24ng" path="res://Sprites/NES - Marble Madness - Miscellaneous - Miscellaneous.png" id="1_hghv2"]
 [ext_resource type="PackedScene" uid="uid://dy65650du4ver" path="res://Scenes/bullet.tscn" id="2_afpow"]
+[ext_resource type="Texture2D" uid="uid://duvvwgx7ngibv" path="res://Sprites/Boss.png" id="3_8uf12"]
 [ext_resource type="Script" uid="uid://dpho6lptevwws" path="res://Scenes/finite_state_machine.gd" id="4_0830c"]
 [ext_resource type="Script" uid="uid://bt2e52jaec2s0" path="res://Scenes/idle.gd" id="5_ghaa6"]
 [ext_resource type="Script" uid="uid://coygoskv6labf" path="res://Scenes/5_leaf.gd" id="6_1dp5w"]
@@ -11,29 +11,27 @@
 [ext_resource type="Script" uid="uid://mpgy7bludkau" path="res://Scenes/2_leaf.gd" id="9_8uf12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1f0kj"]
-size = Vector2(31.3125, 34.625)
+size = Vector2(690, 400)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0830c"]
-radius = 274.029
+radius = 515.0
 
 [node name="Enemy" type="CharacterBody2D"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.2, 0.2)
 script = ExtResource("1_1f0kj")
 alpha = 3.921
 bullet_node = ExtResource("2_afpow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-27.5, -50)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_1f0kj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-9.00001, -12)
-scale = Vector2(2.02639, 1.84849)
-texture = ExtResource("1_hghv2")
+position = Vector2(5, 4.99997)
+scale = Vector2(1.25186, 1.04307)
+texture = ExtResource("3_8uf12")
 offset = Vector2(2, 0)
-hframes = 11
-vframes = 29
-frame = 22
 
 [node name="Speed" type="Timer" parent="."]
 wait_time = 0.05
@@ -56,7 +54,7 @@ position = Vector2(-12, -28)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 unique_name_in_owner = true
-position = Vector2(10, 28)
+position = Vector2(-23, 13)
 shape = SubResource("CircleShape2D_0830c")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
