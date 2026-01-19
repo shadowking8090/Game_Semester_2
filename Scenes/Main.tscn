@@ -1,110 +1,88 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnojvvnw37eyv"]
+[gd_scene load_steps=6 format=3 uid="uid://bnojvvnw37eyv"]
 
-[ext_resource type="Texture2D" uid="uid://dj35mechai5fo" path="res://Sprites/Background.jpg" id="1_idj7w"]
+[ext_resource type="Script" uid="uid://njugm2mgu0xe" path="res://Scenes/path_follow_2d.gd" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://dh0skvbc2gj87" path="res://Scenes/character.tscn" id="3_kln2b"]
 [ext_resource type="PackedScene" uid="uid://djolt1ytty6t5" path="res://Scenes/enemy.tscn" id="3_rgh2o"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu6xs"]
-size = Vector2(1161, 219)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1w88"]
+size = Vector2(318, 9.0003)
+
+[sub_resource type="Curve2D" id="Curve2D_idj7w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 240, 96, 0, 0, 0, 0, 480, 96, 0, 0, 0, 0, 480, 304, 0, 0, 0, 0, 240, 96)
+}
+point_count = 4
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Map" type="Node2D" parent="."]
-position = Vector2(-2435, -1328)
-scale = Vector2(5, 5)
+scale = Vector2(2, 2)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Map"]
-position = Vector2(-18, 134)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D"]
-position = Vector2(583, 538)
-shape = SubResource("RectangleShape2D_uu6xs")
 
 [node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D"]
-offset_top = 426.0
-offset_right = 1163.0
-offset_bottom = 646.0
-color = Color(0.722879, 0.969338, 0.66556, 1)
+offset_top = 174.0
+offset_right = 320.0
+offset_bottom = 183.0
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Map"]
-position = Vector2(-2, -616)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D2"]
-position = Vector2(583, 538)
-shape = SubResource("RectangleShape2D_uu6xs")
-
-[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D2"]
-offset_top = 426.0
-offset_right = 1163.0
-offset_bottom = 646.0
-color = Color(0.722879, 0.969338, 0.66556, 1)
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Map"]
-position = Vector2(480, -509)
-rotation = 1.57322
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D3"]
-position = Vector2(583, 538)
-shape = SubResource("RectangleShape2D_uu6xs")
-
-[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D3"]
-offset_top = 426.0
-offset_right = 1163.0
-offset_bottom = 646.0
-color = Color(0.722879, 0.969338, 0.66556, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D"]
+position = Vector2(161, 178.5)
+shape = SubResource("RectangleShape2D_c1w88")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="Map"]
-position = Vector2(1757, -514)
-rotation = 1.57322
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D4"]
-position = Vector2(583, 538)
-shape = SubResource("RectangleShape2D_uu6xs")
+position = Vector2(2, -176)
 
 [node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D4"]
-offset_top = 426.0
-offset_right = 1163.0
-offset_bottom = 646.0
-color = Color(0.722879, 0.969338, 0.66556, 1)
+offset_top = 174.0
+offset_right = 320.0
+offset_bottom = 183.0
 
-[node name="Background6" type="Sprite2D" parent="Map"]
-z_index = -2
-position = Vector2(1023.6, 291.4)
-scale = Vector2(0.208564, 1.00884)
-texture = ExtResource("1_idj7w")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D4"]
+position = Vector2(161, 178.5)
+shape = SubResource("RectangleShape2D_c1w88")
 
-[node name="Background7" type="Sprite2D" parent="Map"]
-z_index = -2
-position = Vector2(835.414, 302)
-scale = Vector2(0.214797, 0.976105)
-texture = ExtResource("1_idj7w")
+[node name="StaticBody2D2" type="StaticBody2D" parent="Map"]
+position = Vector2(180, -138)
+rotation = 1.57079
 
-[node name="Background8" type="Sprite2D" parent="Map"]
-z_index = -2
-position = Vector2(651.2, 297)
-scale = Vector2(0.208564, 0.968903)
-texture = ExtResource("1_idj7w")
+[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D2"]
+offset_left = 137.0
+offset_top = 174.0
+offset_right = 320.0
+offset_bottom = 183.0
 
-[node name="Background9" type="Sprite2D" parent="Map"]
-z_index = -2
-position = Vector2(464.8, 298.6)
-scale = Vector2(0.208564, 0.941407)
-texture = ExtResource("1_idj7w")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D2"]
+position = Vector2(228.5, 178.5)
+shape = SubResource("RectangleShape2D_c1w88")
 
-[node name="Background10" type="Sprite2D" parent="Map"]
-z_index = -2
-position = Vector2(278.4, 300.4)
-scale = Vector2(0.208564, 0.95581)
-texture = ExtResource("1_idj7w")
+[node name="StaticBody2D3" type="StaticBody2D" parent="Map"]
+position = Vector2(500, -132)
+rotation = 1.57079
 
-[node name="Background11" type="Sprite2D" parent="Map"]
-z_index = -2
-position = Vector2(92.6, 292.6)
-scale = Vector2(0.208564, 0.959738)
-texture = ExtResource("1_idj7w")
+[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D3"]
+offset_left = 137.0
+offset_top = 174.0
+offset_right = 320.0
+offset_bottom = 183.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D3"]
+position = Vector2(228.5, 178.5)
+shape = SubResource("RectangleShape2D_c1w88")
 
 [node name="Character" parent="." instance=ExtResource("3_kln2b")]
+position = Vector2(581, 297)
+scale = Vector2(0.8, 0.8)
 
-[node name="Enemy" parent="." instance=ExtResource("3_rgh2o")]
-position = Vector2(179, -430)
-alpha = 3.568
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_idj7w")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(240, 96)
+scale = Vector2(1, 1)
+script = ExtResource("2_kln2b")
+
+[node name="Enemy" parent="Path2D/PathFollow2D" instance=ExtResource("3_rgh2o")]
+position = Vector2(-0.249161, -2.98978)
+rotation = -1.65394
+scale = Vector2(0.5, 0.5)
+alpha = 3.0

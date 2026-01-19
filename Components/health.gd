@@ -41,6 +41,7 @@ func get_immortality() -> bool:
 
 func set_temporary_immortality(time: float):
 	if immortality_timer == null:
+		print(2)
 		immortality_timer = Timer.new()
 		immortality_timer.one_shot = true
 		add_child(immortality_timer)

@@ -21,3 +21,10 @@ func shoot(angle):
 
 func _on_speed_timeout() -> void:
 	shoot(theta)
+	
+func spin(time: float):
+	var timer = Timer.new()
+	timer.one_shot
+	timer.wait_time = time
+	timer.autostart
+	

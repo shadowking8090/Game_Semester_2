@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=3 uid="uid://dh0skvbc2gj87"]
+
+[ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
+[ext_resource type="Texture2D" uid="uid://c303xp5vrs14n" path="res://Sprites/skull_in_a_ufo_spacecraft.png" id="2_ejsiy"]
+[ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
+[ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
+[ext_resource type="Script" uid="uid://r1acscn43sr8" path="res://Scripts/camera_2d.gd" id="4_nytcm"]
+[ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="6_2mse5"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_a5ess"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_wbia7"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_wbia7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owm7s"]
+size = Vector2(20.3931, 16.9216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nytcm"]
+size = Vector2(20.1184, 17.0084)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mse5"]
+size = Vector2(43.5, 30)
+
+[sub_resource type="Resource" id="Resource_kq7hj"]
+script = ExtResource("8_wbia7")
+duration = 1.0
+transition = 0
+ease = 2
+
+[node name="Character" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["Player"]]
+scale = Vector2(0.5, 0.5)
+input_pickable = true
+motion_mode = 1
+slide_on_ceiling = false
+wall_min_slide_angle = 3.14159
+script = ExtResource("1_lkv7d")
+speed = 120
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-1.90735e-06, 4)
+scale = Vector2(0.0344614, 0.0373477)
+texture = ExtResource("2_ejsiy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(2.195, 4.41752)
+scale = Vector2(2.82497, 2.43269)
+shape = SubResource("RectangleShape2D_owm7s")
+
+[node name="Health" type="Node" parent="CharacterBody2D"]
+script = ExtResource("2_ushfy")
+metadata/_custom_type_script = "uid://buap6fbjmegxf"
+
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(-2, 1)
+collision_layer = 7
+collision_mask = 0
+script = ExtResource("3_owm7s")
+metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
+position = Vector2(3.40782, 3.5)
+scale = Vector2(2.82406, 2.41057)
+shape = SubResource("RectangleShape2D_nytcm")
+debug_color = Color(0.65448, 0.422062, 0.778429, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(1, 3)
+enabled = false
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.4
+drag_vertical_offset = 0.4
+drag_left_margin = 0.4
+drag_top_margin = 0.4
+drag_right_margin = 0.4
+drag_bottom_margin = 0.4
+editor_draw_limits = true
+script = ExtResource("4_nytcm")
+
+[node name="HurtBox" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("health")]
+collision_layer = 0
+script = ExtResource("6_2mse5")
+health = NodePath("../Health")
+immortality_time = 0.0
+metadata/_custom_type_script = "uid://gwtpiig3bg4e"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/HurtBox"]
+position = Vector2(0.25, 4)
+shape = SubResource("RectangleShape2D_2mse5")
+debug_color = Color(0.990773, 0, 0.27413, 0.42)
+
+[node name="Camera2D2" type="Camera2D" parent="CharacterBody2D"]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(266.667, 150)
+zoom = Vector2(0.6, 0.6)
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+
+[node name="PhantomCameraHost" type="Node" parent="CharacterBody2D/Camera2D2"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("7_wbia7")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="CharacterBody2D" node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(266.667, 150)
+script = ExtResource("7_a5ess")
+follow_mode = 1
+follow_target = NodePath("..")
+zoom = Vector2(0.6, 0.6)
+tween_resource = SubResource("Resource_kq7hj")
+rotation_offset = 0.109275
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[connection signal="health_depleted" from="CharacterBody2D/Health" to="CharacterBody2D" method="_on_health_health_depleted"]

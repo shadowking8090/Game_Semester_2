@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dy65650du4ver"]
+[gd_scene load_steps=6 format=3 uid="uid://dy65650du4ver"]
 
 [ext_resource type="Script" uid="uid://h7ibep5cswhc" path="res://Scripts/bullet.gd" id="1_oduel"]
 [ext_resource type="Texture2D" uid="uid://2x10ti2u24ng" path="res://Sprites/NES - Marble Madness - Miscellaneous - Miscellaneous.png" id="2_ycag2"]
+[ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_ycag2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6afsh"]
 radius = 50.0899
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycag2"]
+radius = 30.0
+
 [node name="bullet" type="Area2D"]
+scale = Vector2(0.1, 0.1)
+gravity_space_override = 3
 script = ExtResource("1_oduel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -18,11 +24,21 @@ vframes = 31
 frame = 126
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(2.99999, 1)
-scale = Vector2(6.675, 5.125)
+position = Vector2(20, 22)
+scale = Vector2(162.334, 116.128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_6afsh")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_ycag2")
+metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_ycag2")
+debug_color = Color(0.0690156, 0.646427, 0.18664, 0.42)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

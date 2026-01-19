@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://dh0skvbc2gj87"]
+
+[ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
+[ext_resource type="Texture2D" uid="uid://c303xp5vrs14n" path="res://Sprites/skull_in_a_ufo_spacecraft.png" id="2_ejsiy"]
+[ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
+[ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
+[ext_resource type="Script" uid="uid://r1acscn43sr8" path="res://Scripts/camera_2d.gd" id="4_nytcm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owm7s"]
+size = Vector2(20.3931, 16.9216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nytcm"]
+size = Vector2(20.1184, 17.0084)
+
+[node name="Character" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+scale = Vector2(0.5, 0.5)
+input_pickable = true
+motion_mode = 1
+slide_on_ceiling = false
+wall_min_slide_angle = 3.14159
+script = ExtResource("1_lkv7d")
+speed = 200
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-1.90735e-06, 4)
+scale = Vector2(0.0344614, 0.0373477)
+texture = ExtResource("2_ejsiy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(2.195, 4.41752)
+scale = Vector2(2.82497, 2.43269)
+shape = SubResource("RectangleShape2D_owm7s")
+
+[node name="Health" type="Node" parent="CharacterBody2D"]
+script = ExtResource("2_ushfy")
+metadata/_custom_type_script = "uid://buap6fbjmegxf"
+
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(-2, 1)
+collision_layer = 7
+collision_mask = 0
+script = ExtResource("3_owm7s")
+metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
+position = Vector2(3.40782, 3.5)
+scale = Vector2(2.82406, 2.41057)
+shape = SubResource("RectangleShape2D_nytcm")
+debug_color = Color(0.65448, 0.422062, 0.778429, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(1, 3)
+enabled = false
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.4
+drag_vertical_offset = 0.4
+drag_left_margin = 0.4
+drag_top_margin = 0.4
+drag_right_margin = 0.4
+drag_bottom_margin = 0.4
+editor_draw_limits = true
+script = ExtResource("4_nytcm")
