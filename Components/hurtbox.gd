@@ -15,7 +15,8 @@ func _ready():
 
 func _on_area_entered(hitbox: HitBox) -> void:
 	if hitbox != null:
-		print("5")
 		health.health -= hitbox.damage
 		received_damage.emit(hitbox.damage)
-		sprite_2d.modulate = Color(randf(), randf(), randf())
+		if health.get_immortality() == false:
+			sprite_2d.modulate = Color(randf(), randf(), randf())
+		health.set_temporary_immortality(immortality_time)

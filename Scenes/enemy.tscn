@@ -14,7 +14,7 @@
 size = Vector2(31.3125, 34.625)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0830c"]
-radius = 136.059
+radius = 274.029
 
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -42,6 +42,7 @@ wait_time = 0.05
 wait_time = 4.0
 
 [node name="debug" type="Label" parent="."]
+visible = false
 offset_left = -34.0
 offset_top = -46.0
 offset_right = 38.0

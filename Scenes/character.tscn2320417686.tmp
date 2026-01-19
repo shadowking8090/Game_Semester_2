@@ -35,27 +35,7 @@ slide_on_ceiling = false
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_lkv7d")
 speed = 120
-
-[node name="CanvasLayer" type="CanvasLayer" parent="CharacterBody2D"]
-
-[node name="DashCooldownBar" type="ProgressBar" parent="CharacterBody2D/CanvasLayer"]
-offset_left = 1.0
-offset_top = 8.0
-offset_right = 48.0
-offset_bottom = 40.0
-scale = Vector2(0.462741, 0.393896)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-max_value = 1.0
-value = 1.0
-
-[node name="Dash" type="Label" parent="CharacterBody2D/CanvasLayer"]
-offset_left = 5.0
-offset_top = 1.0
-offset_right = 25.0
-offset_bottom = 12.1667
-theme_override_font_sizes/font_size = 5
-text = "Dash"
+dash_speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(-1.90735e-06, 4)
