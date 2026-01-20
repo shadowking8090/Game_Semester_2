@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://x5ipjn1cfubi"]
+
+[ext_resource type="Script" uid="uid://h7ibep5cswhc" path="res://Scripts/bullet.gd" id="1_xi6pq"]
+[ext_resource type="Texture2D" uid="uid://djrab3uel4ws7" path="res://Sprites/Bullet.png" id="2_ahvrt"]
+[ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_nl3lm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6afsh"]
+radius = 45.1774
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycag2"]
+radius = 41.0122
+
+[node name="bullet" type="Area2D" groups=["parriable"]]
+scale = Vector2(0.3, 0.3)
+gravity_space_override = 3
+script = ExtResource("1_xi6pq")
+speed = 280
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-10, -80)
+scale = Vector2(1.19315, 1.21503)
+texture = ExtResource("2_ahvrt")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(20, 22)
+scale = Vector2(162.334, 116.128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(38, 36)
+shape = SubResource("CircleShape2D_6afsh")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_nl3lm")
+metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(35, 36)
+shape = SubResource("CircleShape2D_ycag2")
+debug_color = Color(0.0690156, 0.646427, 0.18664, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -69,6 +69,7 @@ shape = SubResource("RectangleShape2D_owm7s")
 
 [node name="Health" type="Node" parent="CharacterBody2D"]
 script = ExtResource("2_ushfy")
+max_health = 10
 metadata/_custom_type_script = "uid://buap6fbjmegxf"
 
 [node name="Hitbox" type="Area2D" parent="CharacterBody2D"]

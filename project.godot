@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+global="*res://Scripts/global.gd"
 
 [display]
 
@@ -34,6 +35,8 @@ enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 [global_group]
 
 Player=""
+parriable=""
+is_dashing=""
 
 [gui]
 

@@ -1,31 +1,43 @@
-[gd_scene load_steps=12 format=3 uid="uid://djolt1ytty6t5"]
+[gd_scene load_steps=16 format=3 uid="uid://djolt1ytty6t5"]
 
 [ext_resource type="Script" uid="uid://cte60jj8nmkd7" path="res://Scripts/enemy.gd" id="1_1f0kj"]
 [ext_resource type="PackedScene" uid="uid://dy65650du4ver" path="res://Scenes/bullet.tscn" id="2_afpow"]
 [ext_resource type="Texture2D" uid="uid://duvvwgx7ngibv" path="res://Sprites/Boss.png" id="3_8uf12"]
-[ext_resource type="Script" uid="uid://dpho6lptevwws" path="res://Scenes/finite_state_machine.gd" id="4_0830c"]
-[ext_resource type="Script" uid="uid://bt2e52jaec2s0" path="res://Scenes/idle.gd" id="5_ghaa6"]
-[ext_resource type="Script" uid="uid://coygoskv6labf" path="res://Scenes/5_leaf.gd" id="6_1dp5w"]
-[ext_resource type="Script" uid="uid://qgmd7yudl23o" path="res://Scenes/4_leaf.gd" id="7_auwsv"]
-[ext_resource type="Script" uid="uid://bbcqy4o8t8vbn" path="res://Scenes/3_leaf.gd" id="8_8uf12"]
-[ext_resource type="Script" uid="uid://mpgy7bludkau" path="res://Scenes/2_leaf.gd" id="9_8uf12"]
+[ext_resource type="PackedScene" uid="uid://x5ipjn1cfubi" path="res://Scenes/parry_bullet.tscn" id="3_po0sg"]
+[ext_resource type="Script" uid="uid://dpho6lptevwws" path="res://Scripts/finite_state_machine.gd" id="4_0830c"]
+[ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="4_haro7"]
+[ext_resource type="Script" uid="uid://bt2e52jaec2s0" path="res://Scripts/idle.gd" id="5_ghaa6"]
+[ext_resource type="Script" uid="uid://coygoskv6labf" path="res://Scripts/5_leaf.gd" id="6_1dp5w"]
+[ext_resource type="Script" uid="uid://qgmd7yudl23o" path="res://Scripts/4_leaf.gd" id="7_auwsv"]
+[ext_resource type="Script" uid="uid://bbcqy4o8t8vbn" path="res://Scripts/3_leaf.gd" id="8_8uf12"]
+[ext_resource type="Script" uid="uid://mpgy7bludkau" path="res://Scripts/2_leaf.gd" id="9_8uf12"]
+[ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="12_56vhr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1f0kj"]
-size = Vector2(690, 400)
+size = Vector2(180, 140)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0830c"]
 radius = 515.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56vhr"]
+size = Vector2(150, 125)
 
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_1f0kj")
 alpha = 3.921
 bullet_node = ExtResource("2_afpow")
+parry_bullet_node = ExtResource("3_po0sg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-27.5, -50)
+position = Vector2(-30, -45)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_1f0kj")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_haro7")
+max_health = 1
+metadata/_custom_type_script = "uid://buap6fbjmegxf"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(5, 4.99997)
@@ -75,5 +87,16 @@ script = ExtResource("8_8uf12")
 [node name="2Leaf" type="Node2D" parent="FiniteStateMachine"]
 script = ExtResource("9_8uf12")
 
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+script = ExtResource("12_56vhr")
+health = NodePath("../Health")
+metadata/_custom_type_script = "uid://gwtpiig3bg4e"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-35, -52.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_56vhr")
+
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="timeout" from="Speed" to="." method="_on_speed_timeout"]
 [connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Idle" method="_on_player_detection_body_entered"]

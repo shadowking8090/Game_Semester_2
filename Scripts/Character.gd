@@ -23,6 +23,7 @@ func _physics_process(delta):
 		dash_distance_left -= step
 
 		if dash_distance_left <= 0:
+			remove_from_group("is_dashing")
 			is_dashing = false
 			velocity = Vector2.ZERO
 	else:
@@ -57,6 +58,7 @@ func Dash():
 		dash_distance_left = min(dist, max_dash_distance)
 
 		velocity = dash_direction * dash_speed
+		add_to_group("is_dashing")
 		is_dashing = true
 		can_dash = false
 		dash_timer = 0.0
