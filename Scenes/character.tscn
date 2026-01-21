@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dh0skvbc2gj87"]
+[gd_scene load_steps=14 format=3 uid="uid://dh0skvbc2gj87"]
 
 [ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_a5ess"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_wbia7"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_kq7hj"]
+[ext_resource type="Texture2D" uid="uid://dj35mechai5fo" path="res://Sprites/Background.jpg" id="9_wbia7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_owm7s"]
 size = Vector2(23.2401, 23.6364)
@@ -58,6 +59,18 @@ theme_override_font_sizes/font_size = 16
 max_value = 1.0
 value = 1.0
 
+[node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D/CanvasLayer"]
+modulate = Color(0.823529, 0, 0.117647, 1)
+offset_left = 216.0
+offset_top = 96.0
+offset_right = 376.0
+offset_bottom = 147.0
+max_value = 3.0
+step = 1.0
+value = 3.0
+fill_mode = 1
+show_percentage = false
+
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 scale = Vector2(0.431423, 0.473766)
 texture = ExtResource("2_wbia7")
@@ -69,10 +82,9 @@ shape = SubResource("RectangleShape2D_owm7s")
 
 [node name="Health" type="Node" parent="CharacterBody2D"]
 script = ExtResource("2_ushfy")
-max_health = 10
 metadata/_custom_type_script = "uid://buap6fbjmegxf"
 
-[node name="Hitbox" type="Area2D" parent="CharacterBody2D"]
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["Player"]]
 position = Vector2(-2, 1)
 collision_mask = 0
 script = ExtResource("3_owm7s")
@@ -84,12 +96,12 @@ scale = Vector2(2.82406, 2.41057)
 shape = SubResource("RectangleShape2D_nytcm")
 debug_color = Color(0.65448, 0.422062, 0.778429, 0.42)
 
-[node name="HurtBox" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("health")]
+[node name="HurtBox" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("health") groups=["Player"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("6_2mse5")
 health = NodePath("../Health")
-immortality_time = 0.0
+immortality_time = 1.0
 metadata/_custom_type_script = "uid://gwtpiig3bg4e"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/HurtBox"]
@@ -99,7 +111,6 @@ debug_color = Color(0.990773, 0, 0.27413, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 physics_interpolation_mode = 1
-top_level = true
 position = Vector2(970, 548)
 process_callback = 0
 
@@ -118,5 +129,17 @@ follow_target = NodePath("..")
 tween_resource = SubResource("Resource_7iw6i")
 follow_damping = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CharacterBody2D"]
+position = Vector2(-1.99994, 36)
+emitting = false
+texture = ExtResource("9_wbia7")
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.67
+emission_shape = 1
+emission_sphere_radius = 1.0
+scale_amount_min = 0.01
+scale_amount_max = 0.02
 
 [connection signal="health_depleted" from="CharacterBody2D/Health" to="CharacterBody2D" method="_on_health_health_depleted"]

@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://djrab3uel4ws7" path="res://Sprites/Bullet.png" id="2_ahvrt"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_nl3lm"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6afsh"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xi6pq"]
 radius = 45.1774
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ycag2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ahvrt"]
 radius = 41.0122
 
 [node name="bullet" type="Area2D" groups=["parriable"]]
@@ -16,18 +16,13 @@ gravity_space_override = 3
 script = ExtResource("1_xi6pq")
 speed = 280
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-10, -80)
-scale = Vector2(1.19315, 1.21503)
-texture = ExtResource("2_ahvrt")
-
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(20, 22)
 scale = Vector2(162.334, 116.128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(38, 36)
-shape = SubResource("CircleShape2D_6afsh")
+shape = SubResource("CircleShape2D_xi6pq")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -37,8 +32,19 @@ metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(35, 36)
-shape = SubResource("CircleShape2D_ycag2")
+shape = SubResource("CircleShape2D_ahvrt")
 debug_color = Color(0.0690156, 0.646427, 0.18664, 0.42)
 
+[node name="Sprite2D" type="Sprite2D" parent="HitBox"]
+position = Vector2(3.99998, -33)
+scale = Vector2(0.807602, 0.785003)
+texture = ExtResource("2_ahvrt")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 16.6667
+offset_top = 16.6667
+offset_right = 56.6667
+offset_bottom = 56.6667
+color = Color(0.803922, 0.211765, 1, 1)
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

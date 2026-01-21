@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var health: Health = $Health
 
 @onready var dash_bar := $CanvasLayer/DashCooldownBar
+@onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
 
 var dash_direction := Vector2.ZERO
 var dash_distance_left := 0.0
@@ -16,18 +17,20 @@ var is_dashing := false
 
 func _physics_process(delta):
 	update_dash_cooldown(delta)
+	cpu_particles_2d.direction = get_global_mouse_position()
 
 	if is_dashing:
-		health.set_immortality(true)
 		var step = dash_speed * delta
 		dash_distance_left -= step
 
-		if dash_distance_left <= 0:
+		if dash_distance_left <= 0 or Input.is_action_just_released("mouse_right"):
 			remove_from_group("is_dashing")
 			is_dashing = false
 			velocity = Vector2.ZERO
+			health.immortality = false
+			cpu_particles_2d.emitting = false
+
 	else:
-		health.set_immortality(false)
 		Move(delta)
 		Dash()
 
@@ -40,7 +43,7 @@ func Move(delta):
 	var mouse_pos = get_global_mouse_position()
 	var dist = global_position.distance_to(mouse_pos)
 
-	if Input.is_action_pressed("mouse_left") and dist > 40:
+	if Input.is_action_pressed("mouse_left") and dist > 40 and not is_dashing:
 		var dir = global_position.direction_to(mouse_pos)
 		velocity = dir * speed
 	else:
@@ -62,6 +65,8 @@ func Dash():
 		is_dashing = true
 		can_dash = false
 		dash_timer = 0.0
+		cpu_particles_2d.emitting = true
+		health.immortality = true
 
 
 

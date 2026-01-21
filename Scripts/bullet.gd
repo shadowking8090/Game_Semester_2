@@ -18,3 +18,4 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player") and body.is_in_group("is_dashing"):
 		global.emit_signal("bullet_parried", hit_box)
+		queue_free()
