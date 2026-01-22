@@ -10,6 +10,7 @@ var theta: float = 0.0
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var path_2d: Path2D = $"../.."
 @onready var label: Label = $Label
+@onready var damage: ColorRect = $Damage
 
 func _ready() -> void:
 	label.text = str(health.get_max_health())
@@ -21,7 +22,7 @@ func get_vector(angle) -> Vector2:
 	return Vector2(cos(theta), sin(theta))
 	
 func shoot(angle) -> void:
-	var rando = randi_range(0,50)
+	var rando = randi_range(0,1)
 	var bullet = bullet_node.instantiate()
 	if rando == 0:
 		bullet = parry_bullet_node.instantiate()
@@ -44,6 +45,9 @@ func spin(time: float) -> void:
 	
 func bullet_parried(hitbox):
 	hurt_box.emit_signal("area_entered", hitbox)
+	visible = false
+	global.frame_freeze(0.05)
+	visible = true
 	label.text = str(health.health)
 
 func _on_health_health_depleted() -> void:

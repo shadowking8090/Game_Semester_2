@@ -16,6 +16,7 @@ var can_dash := true
 var is_dashing := false
 
 func _physics_process(delta):
+	debug()
 	update_dash_cooldown(delta)
 	cpu_particles_2d.direction = get_global_mouse_position()
 
