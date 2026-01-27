@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bnojvvnw37eyv"]
 
-[ext_resource type="Script" uid="uid://njugm2mgu0xe" path="res://Scripts/path_follow_2d.gd" id="2_kln2b"]
+[ext_resource type="Script" uid="uid://cudo0kmqth6os" path="res://Scenes/path_follow_2d.gd" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://dh0skvbc2gj87" path="res://Scenes/character.tscn" id="3_kln2b"]
 [ext_resource type="PackedScene" uid="uid://djolt1ytty6t5" path="res://Scenes/enemy.tscn" id="3_rgh2o"]
 
@@ -9,11 +9,11 @@ size = Vector2(318, 9.0003)
 
 [sub_resource type="Curve2D" id="Curve2D_idj7w"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 240, 88, 0, 0, 0, 0, 240, 88, 0, 0, 0, 0, 120, 184, 0, 0, 0, 0, 112, 296, 0, 0, 0, 0, 376, 296, 0, 0, 0, 0, 368, 176, 0, 0, 0, 0, 240, 88)
+"points": PackedVector2Array(0, 0, 0, 0, 184, 152, 0, 0, 0, 0, 1768, 112, 0, 0, 0, 0, 1768, 944, 0, 0, 0, 0, 192, 944, 0, 0, 0, 0, 1760, 128, 0, 0, 0, 0, 200, 168, 0, 0, 0, 0, 1728, 912, 0, 0, 0, 0, 224, 928, 0, 0, 0, 0, 184, 152)
 }
-point_count = 7
+point_count = 9
 
-[node name="Node2D" type="Node2D"]
+[node name="World" type="Node2D"]
 
 [node name="Map" type="Node2D" parent="."]
 scale = Vector2(6, 6)
@@ -74,13 +74,24 @@ position = Vector2(160, 464)
 scale = Vector2(0.8, 0.8)
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(80, -32)
-scale = Vector2(3.55829, 3.0929)
 curve = SubResource("Curve2D_idj7w")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(240.084, 87.9326)
-rotates = false
+position = Vector2(184, 152)
+rotation = -0.0252472
 script = ExtResource("2_kln2b")
 
 [node name="Enemy" parent="Path2D/PathFollow2D" instance=ExtResource("3_rgh2o")]
+position = Vector2(7.99744, 0.201965)
+scale = Vector2(0.711658, 0.61858)
+
+[node name="On" type="Timer" parent="Path2D/PathFollow2D/Enemy"]
+wait_time = 4.0
+one_shot = true
+
+[node name="Off" type="Timer" parent="Path2D/PathFollow2D/Enemy"]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="Path2D/PathFollow2D/Enemy/On" to="Path2D/PathFollow2D" method="_on_on_timeout"]
+[connection signal="timeout" from="Path2D/PathFollow2D/Enemy/Off" to="Path2D/PathFollow2D" method="_on_off_timeout"]

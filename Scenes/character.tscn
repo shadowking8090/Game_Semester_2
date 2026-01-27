@@ -82,6 +82,7 @@ shape = SubResource("RectangleShape2D_owm7s")
 
 [node name="Health" type="Node" parent="CharacterBody2D"]
 script = ExtResource("2_ushfy")
+immortality = true
 metadata/_custom_type_script = "uid://buap6fbjmegxf"
 
 [node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["Player"]]
@@ -111,6 +112,7 @@ debug_color = Color(0.990773, 0, 0.27413, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 physics_interpolation_mode = 1
+top_level = true
 position = Vector2(970, 548)
 process_callback = 0
 
