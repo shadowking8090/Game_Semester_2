@@ -112,7 +112,6 @@ debug_color = Color(0.990773, 0, 0.27413, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 physics_interpolation_mode = 1
-top_level = true
 position = Vector2(970, 548)
 process_callback = 0
 
