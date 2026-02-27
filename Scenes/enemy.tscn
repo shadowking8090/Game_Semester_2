@@ -1,14 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://djolt1ytty6t5"]
+[gd_scene load_steps=16 format=3 uid="uid://djolt1ytty6t5"]
 
 [ext_resource type="Script" uid="uid://cte60jj8nmkd7" path="res://Scripts/enemy.gd" id="1_1f0kj"]
 [ext_resource type="PackedScene" uid="uid://dy65650du4ver" path="res://Scenes/bullet.tscn" id="2_afpow"]
 [ext_resource type="Texture2D" uid="uid://duvvwgx7ngibv" path="res://Sprites/Boss.png" id="3_8uf12"]
 [ext_resource type="PackedScene" uid="uid://x5ipjn1cfubi" path="res://Scenes/parry_bullet.tscn" id="3_po0sg"]
+[ext_resource type="Script" uid="uid://dpho6lptevwws" path="res://Scripts/finite_state_machine.gd" id="4_0830c"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="4_haro7"]
-[ext_resource type="Script" uid="uid://3gw3aap3430n" path="res://Scripts/State/state_machine.gd" id="7_8uf12"]
-[ext_resource type="Script" uid="uid://c0n0ap5k6d0tl" path="res://Scripts/State/boss 1/idle_state.gd" id="8_po0sg"]
-[ext_resource type="Script" uid="uid://c7pme07p7phri" path="res://Scripts/State/boss 1/alpha_state.gd" id="9_haro7"]
-[ext_resource type="Script" uid="uid://cev8gr0g2i7h0" path="res://Scripts/State/boss 1/shoot_player.gd" id="10_po0sg"]
+[ext_resource type="Script" uid="uid://bt2e52jaec2s0" path="res://Scripts/idle.gd" id="5_ghaa6"]
+[ext_resource type="Script" uid="uid://coygoskv6labf" path="res://Scripts/5_leaf.gd" id="6_1dp5w"]
+[ext_resource type="Script" uid="uid://qgmd7yudl23o" path="res://Scripts/4_leaf.gd" id="7_auwsv"]
+[ext_resource type="Script" uid="uid://bbcqy4o8t8vbn" path="res://Scripts/3_leaf.gd" id="8_8uf12"]
+[ext_resource type="Script" uid="uid://mpgy7bludkau" path="res://Scripts/2_leaf.gd" id="9_8uf12"]
 [ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="12_56vhr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1f0kj"]
@@ -76,6 +78,24 @@ unique_name_in_owner = true
 position = Vector2(-23, 13)
 shape = SubResource("CircleShape2D_0830c")
 
+[node name="FiniteStateMachine" type="Node2D" parent="."]
+script = ExtResource("4_0830c")
+
+[node name="Idle" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("5_ghaa6")
+
+[node name="5Leaf" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("6_1dp5w")
+
+[node name="4Leaf" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("7_auwsv")
+
+[node name="3Leaf" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("8_8uf12")
+
+[node name="2Leaf" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("9_8uf12")
+
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("12_56vhr")
 health = NodePath("../Health")
@@ -85,27 +105,6 @@ metadata/_custom_type_script = "uid://gwtpiig3bg4e"
 position = Vector2(-35, -52.5)
 shape = SubResource("RectangleShape2D_56vhr")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("7_8uf12")
-initial_state = NodePath("IdleState")
-metadata/_custom_type_script = "uid://3gw3aap3430n"
-
-[node name="IdleState" type="Node" parent="StateMachine"]
-script = ExtResource("8_po0sg")
-metadata/_custom_type_script = "uid://c0n0ap5k6d0tl"
-
-[node name="AlphaState" type="Node" parent="StateMachine"]
-script = ExtResource("9_haro7")
-bullet_node = ExtResource("2_afpow")
-parry_bullet_node = ExtResource("3_po0sg")
-metadata/_custom_type_script = "uid://c7pme07p7phri"
-
-[node name="ShootPlayer" type="Node" parent="StateMachine"]
-script = ExtResource("10_po0sg")
-bullet_node = ExtResource("2_afpow")
-metadata/_custom_type_script = "uid://cev8gr0g2i7h0"
-
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
-[connection signal="timeout" from="Speed" to="StateMachine/AlphaState" method="_on_speed_timeout"]
-[connection signal="timeout" from="Duration" to="StateMachine/AlphaState" method="_on_duration_timeout"]
-[connection signal="body_entered" from="PlayerDetection" to="StateMachine/IdleState" method="_on_player_detection_body_entered"]
+[connection signal="timeout" from="Speed" to="." method="_on_speed_timeout"]
+[connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Idle" method="_on_player_detection_body_entered"]
