@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://djolt1ytty6t5"]
+[gd_scene load_steps=16 format=3 uid="uid://djolt1ytty6t5"]
 
 [ext_resource type="Script" uid="uid://cte60jj8nmkd7" path="res://Scripts/enemy.gd" id="1_1f0kj"]
 [ext_resource type="PackedScene" uid="uid://dy65650du4ver" path="res://Scenes/bullet.tscn" id="2_afpow"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c0n0ap5k6d0tl" path="res://Scripts/State/boss 1/idle_state.gd" id="8_po0sg"]
 [ext_resource type="Script" uid="uid://c7pme07p7phri" path="res://Scripts/State/boss 1/alpha_state.gd" id="9_haro7"]
 [ext_resource type="Script" uid="uid://cev8gr0g2i7h0" path="res://Scripts/State/boss 1/shoot_player.gd" id="10_po0sg"]
+[ext_resource type="Script" uid="uid://chmkoyinvbpaq" path="res://Scenes/follow_state.gd" id="11_haro7"]
 [ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="12_56vhr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1f0kj"]
@@ -20,10 +21,14 @@ radius = 515.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56vhr"]
 size = Vector2(150, 125)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_haro7"]
+radius = 495.101
+
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_1f0kj")
 alpha = 3.921
+speed = 600
 bullet_node = ExtResource("2_afpow")
 parry_bullet_node = ExtResource("3_po0sg")
 
@@ -55,7 +60,6 @@ offset = Vector2(2, 0)
 wait_time = 0.05
 
 [node name="Duration" type="Timer" parent="."]
-wait_time = 4.0
 
 [node name="debug" type="Label" parent="."]
 visible = false
@@ -95,15 +99,29 @@ metadata/_custom_type_script = "uid://c0n0ap5k6d0tl"
 
 [node name="AlphaState" type="Node" parent="StateMachine"]
 script = ExtResource("9_haro7")
-alpha = null
 bullet_node = ExtResource("2_afpow")
 parry_bullet_node = ExtResource("3_po0sg")
 metadata/_custom_type_script = "uid://c7pme07p7phri"
 
-[node name="ShootPlayer" type="Node" parent="StateMachine"]
+[node name="ShootPlayerState" type="Node" parent="StateMachine"]
 script = ExtResource("10_po0sg")
 bullet_node = ExtResource("2_afpow")
 metadata/_custom_type_script = "uid://cev8gr0g2i7h0"
+
+[node name="FollowState" type="Node" parent="StateMachine"]
+script = ExtResource("11_haro7")
+metadata/_custom_type_script = "uid://dhprjo5lcfjbr"
+
+[node name="PlayerFollow" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerFollow"]
+position = Vector2(-40, -15)
+shape = SubResource("CircleShape2D_haro7")
+debug_color = Color(0.817317, 0.346347, 0.552827, 0.42)
+
+[node name="FollowTime" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="timeout" from="Speed" to="StateMachine/AlphaState" method="_on_speed_timeout"]

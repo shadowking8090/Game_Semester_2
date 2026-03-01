@@ -71,6 +71,15 @@ value = 3.0
 fill_mode = 1
 show_percentage = false
 
+[node name="Label" type="Label" parent="CharacterBody2D/CanvasLayer"]
+offset_left = 1629.0
+offset_top = 24.0
+offset_right = 1911.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.870588, 0.172549, 0.0980392, 0.917647)
+theme_override_font_sizes/font_size = 30
+text = "Press \"R\" to Restart"
+
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 scale = Vector2(0.431423, 0.473766)
 texture = ExtResource("2_wbia7")
@@ -82,6 +91,7 @@ shape = SubResource("RectangleShape2D_owm7s")
 
 [node name="Health" type="Node" parent="CharacterBody2D"]
 script = ExtResource("2_ushfy")
+immortality = true
 metadata/_custom_type_script = "uid://buap6fbjmegxf"
 
 [node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["Player"]]
@@ -113,6 +123,7 @@ debug_color = Color(0.990773, 0, 0.27413, 0.42)
 physics_interpolation_mode = 1
 position = Vector2(970, 548)
 process_callback = 0
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="CharacterBody2D/Camera2D"]
 process_priority = 300
@@ -128,6 +139,7 @@ follow_mode = 2
 follow_target = NodePath("..")
 tween_resource = SubResource("Resource_7iw6i")
 follow_damping = true
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="CharacterBody2D"]
