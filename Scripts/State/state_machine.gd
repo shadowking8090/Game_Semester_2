@@ -3,6 +3,7 @@ extends Node
 
 @export var initial_state: State
 var current_state: State
+var previous_state: String = ""
 var states: Dictionary = {}
 
 func _ready() -> void:
@@ -29,8 +30,10 @@ func _input(event: InputEvent) -> void:
 	
 func change_state(new_state: String) -> void:
 	if current_state:
+		previous_state = current_state.name
 		current_state.exit()
-		
+	
+	print("Changing state from: ", previous_state, " to: ", new_state)
 	current_state = states.get(new_state.to_lower())
 	
 	if current_state:

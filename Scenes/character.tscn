@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dh0skvbc2gj87"]
+[gd_scene load_steps=15 format=3 uid="uid://dh0skvbc2gj87"]
 
 [ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
-[ext_resource type="Texture2D" uid="uid://b2pdeg8ghkc73" path="res://Sprites/Hero.png" id="2_wbia7"]
+[ext_resource type="Texture2D" uid="uid://bgh3sme2inl26" path="res://Sprites/Scissors.png" id="2_wbia7"]
+[ext_resource type="Script" uid="uid://bh4sjoph8qe4u" path="res://Scenes/sprite_2d.gd" id="3_kq7hj"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
 [ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="6_2mse5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_a5ess"]
@@ -11,10 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://dj35mechai5fo" path="res://Sprites/Background.jpg" id="9_wbia7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_owm7s"]
-size = Vector2(23.2401, 23.6364)
+size = Vector2(12.682, 17.2648)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nytcm"]
-size = Vector2(20.9804, 23.6459)
+size = Vector2(10.1361, 15.7123)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mse5"]
 size = Vector2(54.7188, 47.4375)
@@ -81,11 +82,15 @@ theme_override_font_sizes/font_size = 30
 text = "Press \"R\" to Restart"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-scale = Vector2(0.431423, 0.473766)
+position = Vector2(5.99998, -4.99999)
+scale = Vector2(0.161263, 0.169848)
 texture = ExtResource("2_wbia7")
+script = ExtResource("3_kq7hj")
+rotation_speed = 10.0
+rotation_offset = 266.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(1, -7)
+position = Vector2(4, -8)
 scale = Vector2(2.82497, 2.43269)
 shape = SubResource("RectangleShape2D_owm7s")
 
@@ -100,8 +105,8 @@ script = ExtResource("3_owm7s")
 metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
-position = Vector2(5, -7.99999)
-scale = Vector2(2.82406, 2.41057)
+position = Vector2(7, -7.5)
+scale = Vector2(4.06624, 2.86399)
 shape = SubResource("RectangleShape2D_nytcm")
 debug_color = Color(0.65448, 0.422062, 0.778429, 0.42)
 
@@ -114,14 +119,15 @@ immortality_time = 1.0
 metadata/_custom_type_script = "uid://gwtpiig3bg4e"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/HurtBox"]
-position = Vector2(3, -7)
+position = Vector2(4, -6)
+scale = Vector2(0.595937, 0.622356)
 shape = SubResource("RectangleShape2D_2mse5")
 debug_color = Color(0.990773, 0, 0.27413, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 physics_interpolation_mode = 1
-top_level = true
 position = Vector2(970, 548)
+enabled = false
 process_callback = 0
 editor_draw_limits = true
 

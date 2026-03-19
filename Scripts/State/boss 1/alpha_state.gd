@@ -13,12 +13,16 @@ var leaf_index = 0
 @onready var duration: Timer = $"../../Duration"
 
 func enter():
-	print("Entering Alpha State")
 	global.bullet_speed = 400
 	leaf_index = 0
 	alpha = leaf_pattern[leaf_index]
 	duration.start()
 	speed.start()
+	
+func exit():
+	print(name, " exiting to: ")
+	duration.stop()
+	speed.stop()
 
 func get_vector(angle) -> Vector2:
 	theta = angle + alpha
@@ -49,6 +53,8 @@ func spin(time: float) -> void:
 
 
 func _on_duration_timeout() -> void:
+	if state_machine.current_state != self:
+		return
 	leaf_index += 1
 	if leaf_index > 3:
 		duration.stop()
@@ -57,3 +63,4 @@ func _on_duration_timeout() -> void:
 	else:
 		alpha = leaf_pattern[leaf_index]
 		duration.start()
+		speed.start()

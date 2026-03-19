@@ -17,7 +17,6 @@ func _ready() -> void:
 	label.text = str(health.get_max_health())
 	global.bullet_parried.connect(bullet_parried)
 	
-	
 func bullet_parried(hitbox):
 	hurt_box.emit_signal("area_entered", hitbox)
 	global.frame_freeze(0.05)

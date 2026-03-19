@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var dash_cooldown := 0.5
 @export var max_dash_distance := 75
 @onready var health: Health = $Health
+@onready var hurt_box: HurtBox = $HurtBox
 
 @onready var dash_bar := $CanvasLayer/DashCooldownBar
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
@@ -14,6 +15,12 @@ var dash_distance_left := 0.0
 var dash_timer := 0.0
 var can_dash := true
 var is_dashing := false
+
+func _ready() -> void:
+	global.player_hit.connect(player_hit)
+	
+func player_hit(hitbox):
+	hurt_box.emit_signal("area_entered", hitbox)
 
 func _physics_process(delta):
 	global.player_position = global_position
@@ -86,6 +93,8 @@ func update_dash_cooldown(delta):
 func debug():
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().reload_current_scene()
+		
+
 
 func _on_health_health_depleted() -> void:
 	get_tree().reload_current_scene()

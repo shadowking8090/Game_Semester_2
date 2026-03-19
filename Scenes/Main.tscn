@@ -1,12 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnojvvnw37eyv"]
+[gd_scene load_steps=8 format=3 uid="uid://bnojvvnw37eyv"]
 
 [ext_resource type="PackedScene" uid="uid://dh0skvbc2gj87" path="res://Scenes/character.tscn" id="3_kln2b"]
+[ext_resource type="Texture2D" uid="uid://k5unc840bufj" path="res://light/512x512 textures (22).png" id="3_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://djolt1ytty6t5" path="res://Scenes/enemy.tscn" id="3_rgh2o"]
+[ext_resource type="Texture2D" uid="uid://do6jnsc0f1d2a" path="res://Sprites/icon.svg" id="3_v1gob"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jw32o"]
+radius = 26.3059
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c1w88"]
 size = Vector2(318, 9.0003)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_v1gob"]
+
 [node name="World" type="Node2D"]
+
+[node name="Lantern" type="RigidBody2D" parent="."]
+visible = false
+position = Vector2(-369, 204)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lantern"]
+position = Vector2(831, 123)
+shape = SubResource("CircleShape2D_jw32o")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Lantern"]
+position = Vector2(832, 129)
+texture = ExtResource("3_v1gob")
+
+[node name="PointLight2D" type="PointLight2D" parent="Lantern"]
+position = Vector2(834, 139)
+energy = 1.4
+texture = ExtResource("3_pbw6q")
+texture_scale = 2.3
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0, 0, 0, 1)
 
 [node name="Map" type="Node2D" parent="."]
 scale = Vector2(6, 6)
@@ -67,6 +97,20 @@ position = Vector2(160, 464)
 scale = Vector2(0.8, 0.8)
 
 [node name="Enemy" parent="." instance=ExtResource("3_rgh2o")]
-position = Vector2(970, 446)
+position = Vector2(930, 347)
 rotation = -0.0252472
 scale = Vector2(0.711658, 0.61858)
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
+position = Vector2(973, 27)
+rotation = 1.01404
+node_a = NodePath("../AnchorLight")
+node_b = NodePath("../Lantern")
+length = 580.0
+damping = 0.25
+
+[node name="AnchorLight" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnchorLight"]
+position = Vector2(975, 39)
+shape = SubResource("CircleShape2D_v1gob")

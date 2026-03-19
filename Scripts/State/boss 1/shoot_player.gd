@@ -11,7 +11,6 @@ var shoot_timer: Timer
 var duration_timer: Timer
 
 func enter():
-	print("Entering Shoot State")
 	global.bullet_speed = 1000
 	duration_timer = Timer.new()
 	duration_timer.one_shot = true
@@ -24,6 +23,17 @@ func enter():
 	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
 	add_child(shoot_timer)
 	shoot_timer.start()
+	
+func exit():
+	print(name, " exiting to: ")
+	if shoot_timer:
+		shoot_timer.stop()
+		shoot_timer.queue_free()
+		shoot_timer = null
+	if duration_timer:
+		duration_timer.stop()
+		duration_timer.queue_free()
+		duration_timer = null
 
 func shoot():
 	global.bullet_speed = global.bullet_speed
