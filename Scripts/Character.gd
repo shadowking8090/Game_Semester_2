@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var bullet_node : PackedScene
+@export var player_bullet : PackedScene
 
 @export var speed := 600
 @export var dash_speed := 300
@@ -17,6 +17,8 @@ var dash_distance_left := 0.0
 var dash_timer := 0.0
 var can_dash := true
 var is_dashing := false
+var shoot_cooldown: float = 0
+
 
 func _ready() -> void:
 	global.player_hit.connect(player_hit)
@@ -25,13 +27,16 @@ func player_hit(hitbox):
 	hurt_box.emit_signal("area_entered", hitbox)
 
 func _physics_process(delta):
+	shoot_cooldown -= delta
 	global.player_position = global_position
 	debug()
 	update_dash_cooldown(delta)
 	cpu_particles_2d.direction = get_global_mouse_position()
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		shoot()
+		if shoot_cooldown <= 0:
+			shoot()
+			shoot_cooldown = 0.15
 
 	if is_dashing:
 		var step = dash_speed * delta
@@ -49,8 +54,6 @@ func _physics_process(delta):
 		Dash()
 
 	move_and_slide()
-
-
 
 
 func Move(delta):
@@ -83,13 +86,13 @@ func Dash():
 		health.immortality = true
 		
 func shoot():
-	print(1 )
-	global.bullet_speed = global.bullet_speed
-	var bullet = bullet_node.instantiate()
-	
-	bullet.position = global_position
-	
-	bullet.speed = global.bullet_speed
+	if global.player_ammo > 0:
+		var bullet = player_bullet.instantiate()
+		bullet.global_position = global_position
+		var direction = (get_global_mouse_position() - global_position).normalized()
+		bullet.direction = direction
+		get_tree().root.add_child(bullet)
+		global.player_ammo -= 1
 
 
 
@@ -106,9 +109,11 @@ func update_dash_cooldown(delta):
 
 func debug():
 	if Input.is_action_just_pressed("Restart"):
+		global.player_ammo = 3
 		get_tree().reload_current_scene()
 		
 
 
 func _on_health_health_depleted() -> void:
+	global.player_ammo = 3
 	get_tree().reload_current_scene()

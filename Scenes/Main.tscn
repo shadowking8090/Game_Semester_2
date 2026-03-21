@@ -7,9 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://djolt1ytty6t5" path="res://Scenes/enemy.tscn" id="3_rgh2o"]
 [ext_resource type="Script" uid="uid://bfxqessv0dvyt" path="res://Scripts/anchor_light.gd" id="4_50glp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1w88"]
-size = Vector2(318, 9.0003)
-
 [sub_resource type="Gradient" id="Gradient_v1gob"]
 offsets = PackedFloat32Array(0.00649351, 0.616883)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -19,7 +16,37 @@ gradient = SubResource("Gradient_v1gob")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1w88"]
+size = Vector2(318, 9.0003)
+
 [node name="World" type="Node2D"]
+
+[node name="AnchorLight" type="Node2D" parent="."]
+position = Vector2(1019, -1844)
+script = ExtResource("4_50glp")
+
+[node name="Lantern" type="Node2D" parent="AnchorLight" groups=["Lantern"]]
+position = Vector2(-84, 2259)
+script = ExtResource("1_v1gob")
+bullet_node = ExtResource("2_v1gob")
+swing_degrees = 30.0
+swing_speed = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="AnchorLight/Lantern"]
+position = Vector2(-3.19995, -15.2)
+scale = Vector2(0.172451, 0.172451)
+texture = ExtResource("1_rgh2o")
+
+[node name="PointLight2D" type="PointLight2D" parent="AnchorLight/Lantern"]
+position = Vector2(-1, 2)
+scale = Vector2(0.544316, 0.526459)
+energy = 1.61
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_jw32o")
+texture_scale = 2.0
+
+[node name="ShootTimer" type="Timer" parent="AnchorLight/Lantern"]
+autostart = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.0983536, 0.102619, 0.124035, 1)
@@ -85,34 +112,7 @@ scale = Vector2(0.8, 0.8)
 [node name="Enemy" parent="." instance=ExtResource("3_rgh2o")]
 position = Vector2(930, 347)
 rotation = -0.0252472
-scale = Vector2(0.711658, 0.61858)
-
-[node name="AnchorLight" type="Node2D" parent="."]
-position = Vector2(1019, -1844)
-script = ExtResource("4_50glp")
-
-[node name="Lantern" type="Node2D" parent="AnchorLight" groups=["Lantern"]]
-position = Vector2(-84, 2259)
-script = ExtResource("1_v1gob")
-bullet_node = ExtResource("2_v1gob")
-swing_degrees = 30.0
-swing_speed = 1.0
-
-[node name="Sprite2D" type="Sprite2D" parent="AnchorLight/Lantern"]
-position = Vector2(-3.19995, -15.2)
-scale = Vector2(0.172451, 0.172451)
-texture = ExtResource("1_rgh2o")
-
-[node name="PointLight2D" type="PointLight2D" parent="AnchorLight/Lantern"]
-position = Vector2(-1, 2)
-scale = Vector2(0.544316, 0.526459)
-energy = 1.61
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_jw32o")
-texture_scale = 2.0
-
-[node name="ShootTimer" type="Timer" parent="AnchorLight/Lantern"]
-autostart = true
+scale = Vector2(0.7, 0.7)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 shadow_color = Color(0.482353, 0.541176, 0.203922, 0)

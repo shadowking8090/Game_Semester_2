@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bwgm7sgtlosbo"]
 
 [ext_resource type="Script" uid="uid://c4dkrlt2kbw2f" path="res://Scripts/lantern_fire_bullet.gd" id="1_rmtpl"]
-[ext_resource type="Texture2D" uid="uid://b2pdeg8ghkc73" path="res://Sprites/Hero.png" id="2_gua8d"]
+[ext_resource type="Texture2D" uid="uid://dy7g5nxu81gyw" path="res://Sprites/fireball.png" id="2_rmtpl"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_0vnrj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vugu2"]
@@ -15,10 +15,13 @@ script = ExtResource("1_rmtpl")
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-scale = Vector2(0.460223, 0.460223)
-texture = ExtResource("2_gua8d")
+position = Vector2(0, -8)
+scale = Vector2(0.0550013, 0.0550013)
+texture = ExtResource("2_rmtpl")
 
 [node name="HitBox" type="Area2D" parent="RigidBody2D"]
+scale = Vector2(0.586594, 0.586594)
+collision_layer = 8
 script = ExtResource("3_0vnrj")
 metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
 
@@ -29,7 +32,7 @@ shape = SubResource("CircleShape2D_vugu2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(3, -2)
-scale = Vector2(3.22318, 3.41983)
+scale = Vector2(2.3878, 2.53348)
 shape = SubResource("CircleShape2D_wl8ov")
 disabled = true
 debug_color = Color(0.744472, 0.463548, 3.85046e-07, 0.42)

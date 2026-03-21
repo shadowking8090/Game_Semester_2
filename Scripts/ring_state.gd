@@ -32,5 +32,5 @@ func _on_ring_timer_timeout() -> void:
 		ring_timer.start()
 		ring_count -= 1
 	else:
-		get_parent().change_state("idlestate")
+		get_parent().change_state("DashState")
 	

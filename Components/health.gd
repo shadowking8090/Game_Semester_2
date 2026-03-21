@@ -1,6 +1,7 @@
 class_name Health
 extends Node
 
+signal damaged(amount)
 signal health_depleted
 
 @export var max_health: int = 3
@@ -46,5 +47,6 @@ func take_damage(amount: int, temp_immortality: float = 0.0) -> void:
 	if immortality:
 		return 
 	set_health(health - amount)
+	damaged.emit(amount)
 	if temp_immortality > 0:
 		set_temporary_immortality(temp_immortality)

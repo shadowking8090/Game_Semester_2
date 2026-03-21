@@ -3,7 +3,7 @@ extends Node
 signal bullet_parried(hitbox)
 signal player_hit(hitbox)
 
-
+var player_ammo := 3
 var player_immortality := false
 var player_position
 var bullet_speed = 400

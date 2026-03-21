@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dh0skvbc2gj87"]
+[gd_scene load_steps=17 format=3 uid="uid://dh0skvbc2gj87"]
 
 [ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
-[ext_resource type="PackedScene" uid="uid://dy65650du4ver" path="res://Scenes/bullet.tscn" id="2_7iw6i"]
+[ext_resource type="PackedScene" uid="uid://c3lsw06mxnwpj" path="res://Scenes/player_bullet.tscn" id="2_7iw6i"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
 [ext_resource type="Texture2D" uid="uid://bgh3sme2inl26" path="res://Sprites/Scissors.png" id="2_wbia7"]
 [ext_resource type="Script" uid="uid://bh4sjoph8qe4u" path="res://Scripts/sprite_2d.gd" id="3_kq7hj"]
+[ext_resource type="Script" uid="uid://bhjg0ty6aopva" path="res://Scenes/canvas_layer.gd" id="3_l1rcp"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
 [ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="6_2mse5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_a5ess"]
@@ -36,11 +37,12 @@ motion_mode = 1
 slide_on_ceiling = false
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_lkv7d")
-bullet_node = ExtResource("2_7iw6i")
+player_bullet = ExtResource("2_7iw6i")
 dash_speed = 1000
 max_dash_distance = 800
 
 [node name="CanvasLayer" type="CanvasLayer" parent="CharacterBody2D"]
+script = ExtResource("3_l1rcp")
 
 [node name="Dash" type="Label" parent="CharacterBody2D/CanvasLayer"]
 offset_left = 46.0
@@ -83,6 +85,15 @@ theme_override_colors/font_color = Color(0.870588, 0.172549, 0.0980392, 0.917647
 theme_override_font_sizes/font_size = 30
 text = "Press \"R\" to Restart"
 
+[node name="ammo_label" type="Label" parent="CharacterBody2D/CanvasLayer"]
+offset_left = 397.0
+offset_top = 98.0
+offset_right = 548.0
+offset_bottom = 146.854
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Ammo: 3"
+
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(5.99998, -4.99999)
 scale = Vector2(0.161263, 0.169848)
@@ -113,8 +124,7 @@ shape = SubResource("RectangleShape2D_nytcm")
 debug_color = Color(0.65448, 0.422062, 0.778429, 0.42)
 
 [node name="HurtBox" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("health") groups=["Player"]]
-collision_layer = 0
-collision_mask = 2
+collision_mask = 8
 script = ExtResource("6_2mse5")
 health = NodePath("../Health")
 immortality_time = 1.0
