@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://cev8gr0g2i7h0" path="res://Scripts/State/boss 1/shoot_player.gd" id="10_po0sg"]
 [ext_resource type="Script" uid="uid://chmkoyinvbpaq" path="res://Scripts/State/boss 1/follow_state.gd" id="11_haro7"]
 [ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="12_56vhr"]
-[ext_resource type="Script" uid="uid://boc2hu7r6hw11" path="res://Scenes/ring_state.gd" id="12_ta2yt"]
+[ext_resource type="Script" uid="uid://boc2hu7r6hw11" path="res://Scripts/ring_state.gd" id="12_ta2yt"]
 [ext_resource type="PackedScene" uid="uid://ca5526oxp4on3" path="res://Scenes/ring_bullet.tscn" id="13_ta2yt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1f0kj"]

@@ -1,42 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnojvvnw37eyv"]
+[gd_scene load_steps=10 format=3 uid="uid://bnojvvnw37eyv"]
 
+[ext_resource type="Texture2D" uid="uid://cc3q0oyh2k5ts" path="res://Sprites/Latern.png" id="1_rgh2o"]
+[ext_resource type="Script" uid="uid://gg0bvufqkod3" path="res://Scripts/lantern.gd" id="1_v1gob"]
+[ext_resource type="PackedScene" uid="uid://bwgm7sgtlosbo" path="res://Scenes/lantern_fire_bullet.tscn" id="2_v1gob"]
 [ext_resource type="PackedScene" uid="uid://dh0skvbc2gj87" path="res://Scenes/character.tscn" id="3_kln2b"]
-[ext_resource type="Texture2D" uid="uid://k5unc840bufj" path="res://light/512x512 textures (22).png" id="3_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://djolt1ytty6t5" path="res://Scenes/enemy.tscn" id="3_rgh2o"]
-[ext_resource type="Texture2D" uid="uid://do6jnsc0f1d2a" path="res://Sprites/icon.svg" id="3_v1gob"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jw32o"]
-radius = 26.3059
+[ext_resource type="Script" uid="uid://bfxqessv0dvyt" path="res://Scripts/anchor_light.gd" id="4_50glp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c1w88"]
 size = Vector2(318, 9.0003)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v1gob"]
+[sub_resource type="Gradient" id="Gradient_v1gob"]
+offsets = PackedFloat32Array(0.00649351, 0.616883)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jw32o"]
+gradient = SubResource("Gradient_v1gob")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="World" type="Node2D"]
 
-[node name="Lantern" type="RigidBody2D" parent="."]
-visible = false
-position = Vector2(-369, 204)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Lantern"]
-position = Vector2(831, 123)
-shape = SubResource("CircleShape2D_jw32o")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Lantern"]
-position = Vector2(832, 129)
-texture = ExtResource("3_v1gob")
-
-[node name="PointLight2D" type="PointLight2D" parent="Lantern"]
-position = Vector2(834, 139)
-energy = 1.4
-texture = ExtResource("3_pbw6q")
-texture_scale = 2.3
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0, 0, 0, 1)
+color = Color(0.0983536, 0.102619, 0.124035, 1)
 
 [node name="Map" type="Node2D" parent="."]
 scale = Vector2(6, 6)
@@ -101,16 +87,34 @@ position = Vector2(930, 347)
 rotation = -0.0252472
 scale = Vector2(0.711658, 0.61858)
 
-[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
-position = Vector2(973, 27)
-rotation = 1.01404
-node_a = NodePath("../AnchorLight")
-node_b = NodePath("../Lantern")
-length = 580.0
-damping = 0.25
+[node name="AnchorLight" type="Node2D" parent="."]
+position = Vector2(1019, -1844)
+script = ExtResource("4_50glp")
 
-[node name="AnchorLight" type="StaticBody2D" parent="."]
+[node name="Lantern" type="Node2D" parent="AnchorLight" groups=["Lantern"]]
+position = Vector2(-84, 2259)
+script = ExtResource("1_v1gob")
+bullet_node = ExtResource("2_v1gob")
+swing_degrees = 30.0
+swing_speed = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnchorLight"]
-position = Vector2(975, 39)
-shape = SubResource("CircleShape2D_v1gob")
+[node name="Sprite2D" type="Sprite2D" parent="AnchorLight/Lantern"]
+position = Vector2(-3.19995, -15.2)
+scale = Vector2(0.172451, 0.172451)
+texture = ExtResource("1_rgh2o")
+
+[node name="PointLight2D" type="PointLight2D" parent="AnchorLight/Lantern"]
+position = Vector2(-1, 2)
+scale = Vector2(0.544316, 0.526459)
+energy = 1.61
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_jw32o")
+texture_scale = 2.0
+
+[node name="ShootTimer" type="Timer" parent="AnchorLight/Lantern"]
+autostart = true
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+shadow_color = Color(0.482353, 0.541176, 0.203922, 0)
+
+[connection signal="timeout" from="AnchorLight/Lantern/ShootTimer" to="AnchorLight/Lantern" method="_on_shoot_timer_timeout"]

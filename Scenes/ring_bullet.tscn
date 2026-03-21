@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ca5526oxp4on3"]
 
-[ext_resource type="Script" uid="uid://1nem2uoqgk8a" path="res://Scenes/ring_bullet.gd" id="1_nwtc6"]
+[ext_resource type="Script" uid="uid://1nem2uoqgk8a" path="res://Scripts/ring_bullet.gd" id="1_nwtc6"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="2_j6h10"]
 
 [node name="RingBullet" type="Area2D"]

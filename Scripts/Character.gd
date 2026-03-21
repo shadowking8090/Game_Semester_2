@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var bullet_node : PackedScene
+
 @export var speed := 600
 @export var dash_speed := 300
 @export var dash_cooldown := 0.5
@@ -27,6 +29,9 @@ func _physics_process(delta):
 	debug()
 	update_dash_cooldown(delta)
 	cpu_particles_2d.direction = get_global_mouse_position()
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		shoot()
 
 	if is_dashing:
 		var step = dash_speed * delta
@@ -76,6 +81,15 @@ func Dash():
 		dash_timer = 0.0
 		cpu_particles_2d.emitting = true
 		health.immortality = true
+		
+func shoot():
+	print(1 )
+	global.bullet_speed = global.bullet_speed
+	var bullet = bullet_node.instantiate()
+	
+	bullet.position = global_position
+	
+	bullet.speed = global.bullet_speed
 
 
 

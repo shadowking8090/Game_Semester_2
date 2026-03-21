@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dh0skvbc2gj87"]
+[gd_scene load_steps=16 format=3 uid="uid://dh0skvbc2gj87"]
 
 [ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
+[ext_resource type="PackedScene" uid="uid://dy65650du4ver" path="res://Scenes/bullet.tscn" id="2_7iw6i"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
 [ext_resource type="Texture2D" uid="uid://bgh3sme2inl26" path="res://Sprites/Scissors.png" id="2_wbia7"]
-[ext_resource type="Script" uid="uid://bh4sjoph8qe4u" path="res://Scenes/sprite_2d.gd" id="3_kq7hj"]
+[ext_resource type="Script" uid="uid://bh4sjoph8qe4u" path="res://Scripts/sprite_2d.gd" id="3_kq7hj"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
 [ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="6_2mse5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_a5ess"]
@@ -35,6 +36,7 @@ motion_mode = 1
 slide_on_ceiling = false
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_lkv7d")
+bullet_node = ExtResource("2_7iw6i")
 dash_speed = 1000
 max_dash_distance = 800
 
@@ -126,6 +128,7 @@ debug_color = Color(0.990773, 0, 0.27413, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 physics_interpolation_mode = 1
+top_level = true
 position = Vector2(970, 548)
 enabled = false
 process_callback = 0
