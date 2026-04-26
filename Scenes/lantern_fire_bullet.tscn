@@ -37,4 +37,9 @@ shape = SubResource("CircleShape2D_wl8ov")
 disabled = true
 debug_color = Color(0.744472, 0.463548, 3.85046e-07, 0.42)
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(20, 22)
+scale = Vector2(162.334, 116.128)
+
 [connection signal="body_entered" from="RigidBody2D/HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

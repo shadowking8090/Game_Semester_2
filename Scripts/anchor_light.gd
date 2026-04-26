@@ -5,6 +5,10 @@ extends Node2D
 
 var time: float = 0.0
 
+func _ready() -> void:
+	visible = false
+	process_mode = Node.PROCESS_MODE_DISABLED
+
 func _process(delta: float) -> void:
 	time += delta
 	rotation = deg_to_rad(sin(time * swing_speed) * swing_degrees)

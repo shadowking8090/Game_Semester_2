@@ -11,8 +11,12 @@ var leaf_index = 0
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var speed: Timer = $"../../Speed"
 @onready var duration: Timer = $"../../Duration"
+@onready var audio: AudioStreamPlayer2D = $"../../AudioStreamPlayer2D"
 
 func enter():
+	audio.stream = load("res://Sounds/Ghost_whoo.mp3")
+	audio.pitch_scale = randf_range(0.6, 1.8)
+	audio.play()
 	global.bullet_speed = 400
 	leaf_index = 0
 	alpha = leaf_pattern[leaf_index]
@@ -29,7 +33,7 @@ func get_vector(angle) -> Vector2:
 	return Vector2(cos(theta), sin(theta))
 	
 func shoot(angle) -> void:
-	var rando = randi_range(0,35)
+	var rando = randi_range(0,10)
 	var bullet = bullet_node.instantiate()
 	if rando == 0:
 		bullet = parry_bullet_node.instantiate()
@@ -59,7 +63,7 @@ func _on_duration_timeout() -> void:
 	if leaf_index > 3:
 		duration.stop()
 		speed.stop()
-		state_machine.change_state("shootplayerstate")
+		state_machine.change_state(global.states[randi_range(0,4)])
 	else:
 		alpha = leaf_pattern[leaf_index]
 		duration.start()

@@ -1,12 +1,13 @@
 class_name ShootPlayerState
 extends State
 
+@export var parry_bullet_node : PackedScene
 @export var bullet_node : PackedScene
 @onready var character: Node2D = $Character
 @onready var enemy: CharacterBody2D = $"../.."
+@onready var audio: AudioStreamPlayer2D = $"../../AudioStreamPlayer2D"
 
-
-var wait_time = 0.1
+var wait_time = 0.2
 var shoot_timer: Timer
 var duration_timer: Timer
 
@@ -25,6 +26,7 @@ func enter():
 	shoot_timer.start()
 	
 func exit():
+	audio.volume_db = 0
 	print(name, " exiting to: ")
 	if shoot_timer:
 		shoot_timer.stop()
@@ -36,8 +38,15 @@ func exit():
 		duration_timer = null
 
 func shoot():
+	audio.stream = load("res://Sounds/ghost_shot.mp3")
+	audio.pitch_scale = randf_range(0.6, 1.8)
+	audio.volume_db = 15
+	audio.play()
 	global.bullet_speed = global.bullet_speed
+	var rando = randi_range(0,5)
 	var bullet = bullet_node.instantiate()
+	if rando == 0:
+		bullet = parry_bullet_node.instantiate()
  
 	bullet.position = enemy.global_position
 	bullet.direction = (global.player_position - enemy.global_position).normalized()
@@ -51,4 +60,4 @@ func _on_shoot_timer_timeout():
 	
 func _on_duration_timer_timeout():
 	shoot_timer.stop()
-	state_machine.change_state("followstate")
+	state_machine.change_state(global.states[randi_range(0,4)])

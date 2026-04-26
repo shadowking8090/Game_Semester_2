@@ -1,17 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://dh0skvbc2gj87"]
+[gd_scene load_steps=21 format=3 uid="uid://dh0skvbc2gj87"]
 
 [ext_resource type="Script" uid="uid://fdx64sinqetx" path="res://Scripts/Character.gd" id="1_lkv7d"]
 [ext_resource type="PackedScene" uid="uid://c3lsw06mxnwpj" path="res://Scenes/player_bullet.tscn" id="2_7iw6i"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="2_ushfy"]
 [ext_resource type="Texture2D" uid="uid://bgh3sme2inl26" path="res://Sprites/Scissors.png" id="2_wbia7"]
 [ext_resource type="Script" uid="uid://bh4sjoph8qe4u" path="res://Scripts/sprite_2d.gd" id="3_kq7hj"]
-[ext_resource type="Script" uid="uid://bhjg0ty6aopva" path="res://Scenes/canvas_layer.gd" id="3_l1rcp"]
+[ext_resource type="Script" uid="uid://bhjg0ty6aopva" path="res://Scripts/canvas_layer.gd" id="3_l1rcp"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_owm7s"]
+[ext_resource type="Theme" uid="uid://3g1yc1iavd7i" path="res://theme.tres" id="4_le1tg"]
+[ext_resource type="Texture2D" uid="uid://hk2rkaohk4ek" path="res://assets/dash_bar_under.png" id="5_dm6ib"]
 [ext_resource type="Script" uid="uid://gwtpiig3bg4e" path="res://Components/hurtbox.gd" id="6_2mse5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_a5ess"]
+[ext_resource type="Texture2D" uid="uid://dmlc1wis68aod" path="res://assets/dash_bar_progress.png" id="6_q5mnj"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_wbia7"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_kq7hj"]
 [ext_resource type="Texture2D" uid="uid://dj35mechai5fo" path="res://Sprites/Background.jpg" id="9_wbia7"]
+[ext_resource type="AudioStream" uid="uid://d2w4wfdowkwu5" path="res://Sounds/clank_damage.mp3" id="14_2daya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_owm7s"]
 size = Vector2(12.682, 17.2648)
@@ -45,54 +49,65 @@ max_dash_distance = 800
 script = ExtResource("3_l1rcp")
 
 [node name="Dash" type="Label" parent="CharacterBody2D/CanvasLayer"]
-offset_left = 46.0
-offset_top = 25.0
-offset_right = 66.0
-offset_bottom = 36.167
+modulate = Color(0.690196, 0.768627, 0.870588, 1)
+offset_left = 71.0
+offset_top = 55.0
+offset_right = 91.0
+offset_bottom = 66.167
 scale = Vector2(6.14934, 5.28914)
+theme = ExtResource("4_le1tg")
 theme_override_font_sizes/font_size = 5
 text = "Dash"
 
-[node name="DashCooldownBar" type="ProgressBar" parent="CharacterBody2D/CanvasLayer"]
-offset_left = 23.0
-offset_top = 76.0
-offset_right = 70.0
-offset_bottom = 108.0
-scale = Vector2(3.13512, 2.56632)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+[node name="health" type="Label" parent="CharacterBody2D/CanvasLayer"]
+modulate = Color(0.690196, 0.768627, 0.870588, 1)
+offset_left = 242.0
+offset_top = 57.0
+offset_right = 262.0
+offset_bottom = 68.167
+scale = Vector2(6.14934, 5.28914)
+theme = ExtResource("4_le1tg")
+theme_override_font_sizes/font_size = 5
+text = "Health"
+
+[node name="DashCooldownBar" type="TextureProgressBar" parent="CharacterBody2D/CanvasLayer"]
+modulate = Color(0.690196, 0.768627, 0.870588, 1)
+offset_left = 42.0
+offset_top = 90.0
+offset_right = 170.0
+offset_bottom = 218.0
+scale = Vector2(1.07784, 0.882293)
+theme = ExtResource("4_le1tg")
 max_value = 1.0
 value = 1.0
+fill_mode = 4
+texture_under = ExtResource("5_dm6ib")
+texture_progress = ExtResource("6_q5mnj")
 
 [node name="ProgressBar" type="ProgressBar" parent="CharacterBody2D/CanvasLayer"]
 modulate = Color(0.823529, 0, 0.117647, 1)
-offset_left = 216.0
-offset_top = 96.0
-offset_right = 376.0
-offset_bottom = 147.0
+offset_left = 215.0
+offset_top = 102.0
+offset_right = 375.0
+offset_bottom = 153.0
+theme = ExtResource("4_le1tg")
 max_value = 3.0
 step = 1.0
 value = 3.0
 fill_mode = 1
 show_percentage = false
 
-[node name="Label" type="Label" parent="CharacterBody2D/CanvasLayer"]
-offset_left = 1629.0
-offset_top = 24.0
-offset_right = 1911.0
-offset_bottom = 66.0
-theme_override_colors/font_color = Color(0.870588, 0.172549, 0.0980392, 0.917647)
-theme_override_font_sizes/font_size = 30
-text = "Press \"R\" to Restart"
-
 [node name="ammo_label" type="Label" parent="CharacterBody2D/CanvasLayer"]
-offset_left = 397.0
-offset_top = 98.0
-offset_right = 548.0
-offset_bottom = 146.854
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 35
-text = "Ammo: 3"
+modulate = Color(0.690196, 0.768627, 0.870588, 1)
+offset_left = 390.0
+offset_top = 55.0
+offset_right = 541.0
+offset_bottom = 155.708
+theme = ExtResource("4_le1tg")
+theme_override_font_sizes/font_size = 30
+text = "Ammo
+ 3"
+horizontal_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(5.99998, -4.99999)
@@ -172,5 +187,12 @@ emission_shape = 1
 emission_sphere_radius = 1.0
 scale_amount_min = 0.01
 scale_amount_max = 0.02
+
+[node name="HurtPlayer" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("14_2daya")
+volume_db = 3.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+position = Vector2(-970, -548)
 
 [connection signal="health_depleted" from="CharacterBody2D/Health" to="CharacterBody2D" method="_on_health_health_depleted"]

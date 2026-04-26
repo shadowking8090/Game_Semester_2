@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1egybme3j07w" path="res://Scripts/player_bullet.gd" id="1_3m2mg"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="2_jskx8"]
-[ext_resource type="Texture2D" uid="uid://do6jnsc0f1d2a" path="res://Sprites/icon.svg" id="2_nocgn"]
+[ext_resource type="Texture2D" uid="uid://lkpqmksl3nkn" path="res://assets/paperbullet.png" id="2_nocgn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bvwda"]
 
@@ -15,7 +15,8 @@ script = ExtResource("1_3m2mg")
 shape = SubResource("CapsuleShape2D_bvwda")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.230346, 0.230346)
+position = Vector2(1.90735e-06, 3.8147e-06)
+scale = Vector2(0.0331072, 0.0331072)
 texture = ExtResource("2_nocgn")
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -27,3 +28,9 @@ metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CapsuleShape2D_18yi1")
 debug_color = Color(0.985438, 0, 0.33376, 0.42)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(80, 106)
+scale = Vector2(162.334, 116.128)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,11 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnojvvnw37eyv"]
+[gd_scene load_steps=19 format=3 uid="uid://bnojvvnw37eyv"]
 
+[ext_resource type="Texture2D" uid="uid://eou3w32wpqav" path="res://assets/paper.jpg" id="1_jw32o"]
 [ext_resource type="Texture2D" uid="uid://cc3q0oyh2k5ts" path="res://Sprites/Latern.png" id="1_rgh2o"]
 [ext_resource type="Script" uid="uid://gg0bvufqkod3" path="res://Scripts/lantern.gd" id="1_v1gob"]
 [ext_resource type="PackedScene" uid="uid://bwgm7sgtlosbo" path="res://Scenes/lantern_fire_bullet.tscn" id="2_v1gob"]
 [ext_resource type="PackedScene" uid="uid://dh0skvbc2gj87" path="res://Scenes/character.tscn" id="3_kln2b"]
 [ext_resource type="PackedScene" uid="uid://djolt1ytty6t5" path="res://Scenes/enemy.tscn" id="3_rgh2o"]
 [ext_resource type="Script" uid="uid://bfxqessv0dvyt" path="res://Scripts/anchor_light.gd" id="4_50glp"]
+[ext_resource type="AudioStream" uid="uid://dxi824o0lkt0u" path="res://Sounds/lantern_hiss.mp3" id="6_bmxlf"]
+[ext_resource type="Script" uid="uid://ilk3o44kts2a" path="res://end_screen.gd" id="8_vy5pj"]
+[ext_resource type="Script" uid="uid://ci8boynnc013x" path="res://Scenes/directional_light_2d.gd" id="9_4kpch"]
+[ext_resource type="Theme" uid="uid://3g1yc1iavd7i" path="res://theme.tres" id="9_bmxlf"]
+[ext_resource type="Texture2D" uid="uid://b73ysofhxkdwn" path="res://assets/moonbeam_texture.png" id="10_frkhe"]
+[ext_resource type="Script" uid="uid://bcvgf7jaqc2va" path="res://Scenes/point_light_2d.gd" id="11_1p5hy"]
+[ext_resource type="AudioStream" uid="uid://dgl5ku75417fl" path="res://Sounds/Haunted House Halloween Ambience - 3 Hours of Relaxing Spooky Sounds and White Noise [gIzstR4n1ak].mp3" id="14_h1m7h"]
+[ext_resource type="Script" uid="uid://c63sjcitjmtc" path="res://Scenes/audio_stream_player_2d.gd" id="15_erwvk"]
 
 [sub_resource type="Gradient" id="Gradient_v1gob"]
 offsets = PackedFloat32Array(0.00649351, 0.616883)
@@ -21,23 +30,31 @@ size = Vector2(318, 9.0003)
 
 [node name="World" type="Node2D"]
 
-[node name="AnchorLight" type="Node2D" parent="."]
+[node name="Container" type="Node2D" parent="."]
+
+[node name="Paper" type="Sprite2D" parent="Container"]
+modulate = Color(0.796243, 0.796243, 0.796243, 1)
+position = Vector2(972.275, 539.92)
+scale = Vector2(3.19222, 2.81711)
+texture = ExtResource("1_jw32o")
+
+[node name="AnchorLight" type="Node2D" parent="Container"]
 position = Vector2(1019, -1844)
 script = ExtResource("4_50glp")
 
-[node name="Lantern" type="Node2D" parent="AnchorLight" groups=["Lantern"]]
+[node name="Lantern" type="Node2D" parent="Container/AnchorLight" groups=["Lantern"]]
 position = Vector2(-84, 2259)
 script = ExtResource("1_v1gob")
 bullet_node = ExtResource("2_v1gob")
 swing_degrees = 30.0
 swing_speed = 1.0
 
-[node name="Sprite2D" type="Sprite2D" parent="AnchorLight/Lantern"]
+[node name="Sprite2D" type="Sprite2D" parent="Container/AnchorLight/Lantern"]
 position = Vector2(-3.19995, -15.2)
 scale = Vector2(0.172451, 0.172451)
 texture = ExtResource("1_rgh2o")
 
-[node name="PointLight2D" type="PointLight2D" parent="AnchorLight/Lantern"]
+[node name="PointLight2D" type="PointLight2D" parent="Container/AnchorLight/Lantern"]
 position = Vector2(-1, 2)
 scale = Vector2(0.544316, 0.526459)
 energy = 1.61
@@ -45,76 +62,204 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_jw32o")
 texture_scale = 2.0
 
-[node name="ShootTimer" type="Timer" parent="AnchorLight/Lantern"]
+[node name="ShootTimer" type="Timer" parent="Container/AnchorLight/Lantern"]
 autostart = true
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.0983536, 0.102619, 0.124035, 1)
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Container/AnchorLight/Lantern"]
+volume_db = -1.981
 
-[node name="Map" type="Node2D" parent="."]
+[node name="Hisser" type="AudioStreamPlayer2D" parent="Container/AnchorLight/Lantern"]
+stream = ExtResource("6_bmxlf")
+volume_db = -1.981
+autoplay = true
+parameters/looping = true
+
+[node name="Map" type="Node2D" parent="Container"]
+modulate = Color(0.577008, 0.577008, 0.577008, 1)
 scale = Vector2(6, 6)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Map"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Container/Map"]
 
-[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D"]
+[node name="ColorRect" type="ColorRect" parent="Container/Map/StaticBody2D"]
 offset_top = 174.0
 offset_right = 320.0
 offset_bottom = 183.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/Map/StaticBody2D"]
 position = Vector2(161, 178.5)
 shape = SubResource("RectangleShape2D_c1w88")
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="Map"]
+[node name="StaticBody2D4" type="StaticBody2D" parent="Container/Map"]
 position = Vector2(2, -176)
 
-[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D4"]
+[node name="ColorRect" type="ColorRect" parent="Container/Map/StaticBody2D4"]
 offset_top = 174.0
 offset_right = 320.0
 offset_bottom = 183.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/Map/StaticBody2D4"]
 position = Vector2(161, 178.5)
 shape = SubResource("RectangleShape2D_c1w88")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Map"]
+[node name="StaticBody2D2" type="StaticBody2D" parent="Container/Map"]
 position = Vector2(180, -138)
 rotation = 1.57079
 
-[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D2"]
+[node name="ColorRect" type="ColorRect" parent="Container/Map/StaticBody2D2"]
 offset_left = 137.0
 offset_top = 174.0
 offset_right = 320.0
 offset_bottom = 183.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/Map/StaticBody2D2"]
 position = Vector2(228.5, 178.5)
 shape = SubResource("RectangleShape2D_c1w88")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="Map"]
+[node name="StaticBody2D3" type="StaticBody2D" parent="Container/Map"]
 position = Vector2(500, -132)
 rotation = 1.57079
 
-[node name="ColorRect" type="ColorRect" parent="Map/StaticBody2D3"]
+[node name="ColorRect" type="ColorRect" parent="Container/Map/StaticBody2D3"]
 offset_left = 137.0
 offset_top = 174.0
 offset_right = 320.0
 offset_bottom = 183.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/Map/StaticBody2D3"]
 position = Vector2(228.5, 178.5)
 shape = SubResource("RectangleShape2D_c1w88")
 
-[node name="Character" parent="." instance=ExtResource("3_kln2b")]
+[node name="Character" parent="Container" instance=ExtResource("3_kln2b")]
 position = Vector2(160, 464)
 scale = Vector2(0.8, 0.8)
 
-[node name="Enemy" parent="." instance=ExtResource("3_rgh2o")]
+[node name="Enemy" parent="Container" instance=ExtResource("3_rgh2o")]
 position = Vector2(930, 347)
 rotation = -0.0252472
 scale = Vector2(0.7, 0.7)
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Container"]
+color = Color(0.690196, 0.768627, 0.870588, 1)
+energy = 0.4
 shadow_color = Color(0.482353, 0.541176, 0.203922, 0)
+script = ExtResource("9_4kpch")
 
-[connection signal="timeout" from="AnchorLight/Lantern/ShootTimer" to="AnchorLight/Lantern" method="_on_shoot_timer_timeout"]
+[node name="PointLight2D" type="PointLight2D" parent="Container"]
+position = Vector2(649, 1141)
+rotation = -0.348913
+color = Color(0.690196, 0.768627, 1, 1)
+energy = 0.6
+texture = ExtResource("10_frkhe")
+offset = Vector2(0, -800)
+texture_scale = 4.0
+script = ExtResource("11_1p5hy")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Container"]
+position = Vector2(1119, 1303)
+rotation = -0.292569
+color = Color(0.690196, 0.768627, 1, 1)
+energy = 0.6
+texture = ExtResource("10_frkhe")
+offset = Vector2(0, -800)
+texture_scale = 4.0
+script = ExtResource("11_1p5hy")
+
+[node name="PointLight2D3" type="PointLight2D" parent="Container"]
+position = Vector2(1940, 1389)
+rotation = -0.470197
+color = Color(0.690196, 0.768627, 1, 1)
+energy = 0.6
+texture = ExtResource("10_frkhe")
+offset = Vector2(0, -800)
+texture_scale = 4.0
+script = ExtResource("11_1p5hy")
+
+[node name="PointLight2D4" type="PointLight2D" parent="Container"]
+position = Vector2(1323, 1625)
+rotation = -0.105378
+color = Color(0.690196, 0.768627, 1, 1)
+energy = 0.6
+texture = ExtResource("10_frkhe")
+offset = Vector2(0, -800)
+texture_scale = 4.0
+script = ExtResource("11_1p5hy")
+
+[node name="PointLight2D5" type="PointLight2D" parent="Container"]
+position = Vector2(1446, 1118)
+rotation = -0.256768
+color = Color(0.690196, 0.768627, 1, 1)
+energy = 0.6
+texture = ExtResource("10_frkhe")
+offset = Vector2(0, -800)
+texture_scale = 4.0
+script = ExtResource("11_1p5hy")
+
+[node name="PointLight2D6" type="PointLight2D" parent="Container"]
+position = Vector2(533, 1617)
+rotation = -0.323407
+color = Color(0.690196, 0.768627, 1, 1)
+energy = 0.6
+texture = ExtResource("10_frkhe")
+offset = Vector2(0, -800)
+texture_scale = 4.0
+script = ExtResource("11_1p5hy")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Container"]
+color = Color(0.101961, 0.12549, 0.25098, 1)
+
+[node name="EndScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_vy5pj")
+
+[node name="ColorRect" type="ColorRect" parent="EndScreen"]
+layout_mode = 0
+offset_right = 1926.0
+offset_bottom = 1082.0
+color = Color(0.388235, 0.458824, 0.47451, 0.756863)
+
+[node name="Label" type="Label" parent="EndScreen"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 272.0
+offset_right = 1884.0
+offset_bottom = 543.0
+theme = ExtResource("9_bmxlf")
+theme_override_font_sizes/font_size = 128
+text = "You Died :("
+horizontal_alignment = 1
+
+[node name="ReplayButton" type="Button" parent="EndScreen"]
+layout_mode = 0
+offset_left = 772.0
+offset_top = 602.0
+offset_right = 1083.0
+offset_bottom = 747.0
+theme = ExtResource("9_bmxlf")
+theme_override_font_sizes/font_size = 96
+text = "Replay"
+
+[node name="MenuButton" type="Button" parent="EndScreen"]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 807.0
+offset_right = 1066.0
+offset_bottom = 952.0
+theme = ExtResource("9_bmxlf")
+theme_override_font_sizes/font_size = 96
+text = "Menu"
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_h1m7h")
+volume_db = 10.0
+parameters/looping = true
+script = ExtResource("15_erwvk")
+
+[connection signal="timeout" from="Container/AnchorLight/Lantern/ShootTimer" to="Container/AnchorLight/Lantern" method="_on_shoot_timer_timeout"]
+[connection signal="pressed" from="EndScreen/ReplayButton" to="EndScreen" method="_on_replay_button_pressed"]
+[connection signal="pressed" from="EndScreen/MenuButton" to="EndScreen" method="_on_menu_button_pressed"]

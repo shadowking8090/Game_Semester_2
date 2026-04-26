@@ -1,12 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://djolt1ytty6t5"]
+[gd_scene load_steps=24 format=3 uid="uid://djolt1ytty6t5"]
 
 [ext_resource type="Script" uid="uid://cte60jj8nmkd7" path="res://Scripts/enemy.gd" id="1_1f0kj"]
 [ext_resource type="PackedScene" uid="uid://dy65650du4ver" path="res://Scenes/bullet.tscn" id="2_afpow"]
 [ext_resource type="PackedScene" uid="uid://x5ipjn1cfubi" path="res://Scenes/parry_bullet.tscn" id="3_po0sg"]
 [ext_resource type="Script" uid="uid://buap6fbjmegxf" path="res://Components/health.gd" id="4_haro7"]
-[ext_resource type="Script" uid="uid://byjhwvevufmvi" path="res://Scenes/label.gd" id="4_vt4ob"]
+[ext_resource type="Texture2D" uid="uid://c4euivs8b1f4x" path="res://assets/health_bar_under.png" id="4_scl1n"]
+[ext_resource type="Script" uid="uid://byjhwvevufmvi" path="res://Scripts/label.gd" id="4_vt4ob"]
+[ext_resource type="Texture2D" uid="uid://2vcydjlb5xop" path="res://assets/health_bar_progress.png" id="5_dhkrs"]
 [ext_resource type="Texture2D" uid="uid://b6qyayun2mbo" path="res://Sprites/Ghost FInal.png" id="5_haro7"]
 [ext_resource type="Script" uid="uid://3gw3aap3430n" path="res://Scripts/State/state_machine.gd" id="7_8uf12"]
+[ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="8_hgeoe"]
 [ext_resource type="Script" uid="uid://c0n0ap5k6d0tl" path="res://Scripts/State/boss 1/idle_state.gd" id="8_po0sg"]
 [ext_resource type="Script" uid="uid://c7pme07p7phri" path="res://Scripts/State/boss 1/alpha_state.gd" id="9_haro7"]
 [ext_resource type="Script" uid="uid://cev8gr0g2i7h0" path="res://Scripts/State/boss 1/shoot_player.gd" id="10_po0sg"]
@@ -25,6 +28,10 @@ radius = 415.482
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56vhr"]
 size = Vector2(150, 125)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tk7xo"]
+radius = 155.0
+height = 450.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_haro7"]
 radius = 385.519
 
@@ -36,14 +43,18 @@ speed = 600
 bullet_node = ExtResource("2_afpow")
 parry_bullet_node = ExtResource("3_po0sg")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -5.0
-offset_top = -360.0
-offset_right = 44.0
-offset_bottom = -312.667
-scale = Vector2(3.65307, 3.83012)
-text = "debug
-"
+[node name="ProgressBar" type="TextureProgressBar" parent="."]
+modulate = Color(0.710068, 0.213271, 0.308566, 1)
+offset_left = -90.0
+offset_top = -290.0
+offset_right = 110.0
+offset_bottom = -270.0
+rotation = -0.00379886
+scale = Vector2(1.23229, 1.29202)
+max_value = 150.0
+rounded = true
+texture_under = ExtResource("4_scl1n")
+texture_progress = ExtResource("5_dhkrs")
 script = ExtResource("4_vt4ob")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -53,8 +64,8 @@ shape = SubResource("RectangleShape2D_1f0kj")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_haro7")
-max_health = 10
-health = 10
+max_health = 15
+health = 15
 metadata/_custom_type_script = "uid://buap6fbjmegxf"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -64,7 +75,7 @@ texture = ExtResource("5_haro7")
 offset = Vector2(2, 0)
 
 [node name="Speed" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.15
 
 [node name="Duration" type="Timer" parent="."]
 
@@ -99,6 +110,15 @@ position = Vector2(25, -35)
 scale = Vector2(3.2468, 3.2468)
 shape = SubResource("RectangleShape2D_56vhr")
 
+[node name="HitBox" type="Area2D" parent="HurtBox"]
+collision_layer = 8
+script = ExtResource("8_hgeoe")
+metadata/_custom_type_script = "uid://b2py0rdp0w1f5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox/HitBox"]
+position = Vector2(30, -25)
+shape = SubResource("CapsuleShape2D_tk7xo")
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_8uf12")
 initial_state = NodePath("IdleState")
@@ -116,6 +136,7 @@ metadata/_custom_type_script = "uid://c7pme07p7phri"
 
 [node name="ShootPlayerState" type="Node" parent="StateMachine"]
 script = ExtResource("10_po0sg")
+parry_bullet_node = ExtResource("3_po0sg")
 bullet_node = ExtResource("2_afpow")
 metadata/_custom_type_script = "uid://cev8gr0g2i7h0"
 
@@ -144,6 +165,13 @@ one_shot = true
 
 [node name="RingTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(1, 1)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="ParrySound" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="timeout" from="Speed" to="StateMachine/AlphaState" method="_on_speed_timeout"]

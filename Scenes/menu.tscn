@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://dlsnvkajjheth"]
+
+[ext_resource type="Script" uid="uid://b3qphutqcduwb" path="res://menu.gd" id="1_xhh6f"]
+[ext_resource type="Texture2D" uid="uid://cc51lkgekm3ht" path="res://assets/Main menu background.png" id="2_158mb"]
+[ext_resource type="Theme" uid="uid://3g1yc1iavd7i" path="res://theme.tres" id="2_cayip"]
+[ext_resource type="Texture2D" uid="uid://f6itwtyjkeqw" path="res://assets/flower background.jpg" id="2_wwsa2"]
+[ext_resource type="Texture2D" uid="uid://b6qyayun2mbo" path="res://Sprites/Ghost FInal.png" id="5_wwsa2"]
+[ext_resource type="Texture2D" uid="uid://bgh3sme2inl26" path="res://Sprites/Scissors.png" id="6_jsrd8"]
+[ext_resource type="Texture2D" uid="uid://cc3q0oyh2k5ts" path="res://Sprites/Latern.png" id="7_wbdvm"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xhh6f")
+
+[node name="FlowerBackground" type="Sprite2D" parent="."]
+position = Vector2(1017, 614)
+scale = Vector2(1.41174, 1.41174)
+texture = ExtResource("2_wwsa2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(973, 611)
+zoom = Vector2(1.1, 1.1)
+
+[node name="MainMenuBackground" type="Sprite2D" parent="."]
+position = Vector2(947.839, 592)
+scale = Vector2(2.86669, 2.68235)
+texture = ExtResource("2_158mb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.238063
+anchor_top = 0.409889
+anchor_right = 0.438063
+anchor_bottom = 0.672889
+offset_left = 0.919983
+offset_top = 0.319977
+offset_right = -241.08
+offset_bottom = -178.72
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2.69779, 2.69779)
+theme_override_constants/separation = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_cayip")
+text = "Start"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_cayip")
+text = "Quit"
+
+[node name="GhostFInal" type="Sprite2D" parent="."]
+position = Vector2(1272, 409)
+rotation = 0.139098
+scale = Vector2(0.449672, 0.449672)
+texture = ExtResource("5_wwsa2")
+
+[node name="Scissors" type="Sprite2D" parent="."]
+position = Vector2(1385, 785)
+rotation = 0.493742
+scale = Vector2(0.232039, 0.232039)
+texture = ExtResource("6_jsrd8")
+
+[node name="Latern" type="Sprite2D" parent="."]
+position = Vector2(1050, 679)
+rotation = -0.399258
+scale = Vector2(0.326862, 0.326862)
+texture = ExtResource("7_wbdvm")
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

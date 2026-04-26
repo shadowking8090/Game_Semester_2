@@ -21,7 +21,7 @@ func update(delta: float):
 	
 	if follow_time.is_stopped():
 		follow_time.stop()
-		state_machine.change_state("ringstate")
+		state_machine.change_state(global.states[randi_range(0,4)])
 	
 func physics_update(delta: float):
 	pass

@@ -13,7 +13,11 @@ func _ready():
 func _on_area_entered(hitbox: HitBox) -> void:
 	if hitbox == null or health == null:
 		return
+	if health.immortality == true:
+		return
 	health.take_damage(hitbox.damage, immortality_time)
 	received_damage.emit(hitbox.damage)
+	if is_in_group("Player"):
+		global.player_hit.emit(hitbox)
 	if progress_bar != null:
 		progress_bar.value = health.health
