@@ -11,7 +11,8 @@ var direction: Vector2 = Vector2.ZERO
 var target_scale: Vector2 = Vector2(1, 1)
 
 func _ready() -> void:
-	pass
+	await get_tree().create_timer(4.0).timeout 
+	queue_free()
 
 func _process(delta: float) -> void:
 	scale = scale.lerp(target_scale, -grow_speed * delta)

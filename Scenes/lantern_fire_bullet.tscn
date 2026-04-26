@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwgm7sgtlosbo"]
+[gd_scene load_steps=7 format=3 uid="uid://bwgm7sgtlosbo"]
 
 [ext_resource type="Script" uid="uid://c4dkrlt2kbw2f" path="res://Scripts/lantern_fire_bullet.gd" id="1_rmtpl"]
 [ext_resource type="Texture2D" uid="uid://dy7g5nxu81gyw" path="res://Sprites/fireball.png" id="2_rmtpl"]
 [ext_resource type="Script" uid="uid://b2py0rdp0w1f5" path="res://Components/hitbox.gd" id="3_0vnrj"]
+[ext_resource type="Texture2D" uid="uid://k5unc840bufj" path="res://light/512x512 textures (22).png" id="4_gua8d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vugu2"]
 
@@ -37,9 +38,15 @@ shape = SubResource("CircleShape2D_wl8ov")
 disabled = true
 debug_color = Color(0.744472, 0.463548, 3.85046e-07, 0.42)
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="RigidBody2D"]
+scale = Vector2(0.281107, 0.281107)
+color = Color(0.618011, 0.163221, 0.285856, 1)
+texture = ExtResource("4_gua8d")
+texture_scale = 0.52
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="RigidBody2D"]
 position = Vector2(20, 22)
 scale = Vector2(162.334, 116.128)
 
 [connection signal="body_entered" from="RigidBody2D/HitBox" to="." method="_on_hit_box_body_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="screen_exited" from="RigidBody2D/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

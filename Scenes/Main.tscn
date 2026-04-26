@@ -9,12 +9,12 @@
 [ext_resource type="Script" uid="uid://bfxqessv0dvyt" path="res://Scripts/anchor_light.gd" id="4_50glp"]
 [ext_resource type="AudioStream" uid="uid://dxi824o0lkt0u" path="res://Sounds/lantern_hiss.mp3" id="6_bmxlf"]
 [ext_resource type="Script" uid="uid://ilk3o44kts2a" path="res://end_screen.gd" id="8_vy5pj"]
-[ext_resource type="Script" uid="uid://ci8boynnc013x" path="res://Scenes/directional_light_2d.gd" id="9_4kpch"]
+[ext_resource type="Script" uid="uid://ci8boynnc013x" path="res://Scripts/directional_light_2d.gd" id="9_4kpch"]
 [ext_resource type="Theme" uid="uid://3g1yc1iavd7i" path="res://theme.tres" id="9_bmxlf"]
 [ext_resource type="Texture2D" uid="uid://b73ysofhxkdwn" path="res://assets/moonbeam_texture.png" id="10_frkhe"]
-[ext_resource type="Script" uid="uid://bcvgf7jaqc2va" path="res://Scenes/point_light_2d.gd" id="11_1p5hy"]
-[ext_resource type="AudioStream" uid="uid://dgl5ku75417fl" path="res://Sounds/Haunted House Halloween Ambience - 3 Hours of Relaxing Spooky Sounds and White Noise [gIzstR4n1ak].mp3" id="14_h1m7h"]
-[ext_resource type="Script" uid="uid://c63sjcitjmtc" path="res://Scenes/audio_stream_player_2d.gd" id="15_erwvk"]
+[ext_resource type="Script" uid="uid://bcvgf7jaqc2va" path="res://Scripts/point_light_2d.gd" id="11_1p5hy"]
+[ext_resource type="AudioStream" uid="uid://2j3d5q1fycg4" path="res://Sounds/Ambient music.mp3" id="14_h1m7h"]
+[ext_resource type="Script" uid="uid://c63sjcitjmtc" path="res://Scripts/audio_stream_player_2d.gd" id="15_erwvk"]
 
 [sub_resource type="Gradient" id="Gradient_v1gob"]
 offsets = PackedFloat32Array(0.00649351, 0.616883)

@@ -33,11 +33,11 @@ func _ready() -> void:
 	
 	
 func player_hit(hitbox):
-		sprite_2d.modulate = Color.RED
-		await get_tree().create_timer(0.15).timeout
-		sprite_2d.modulate = Color.WHITE
-		hurt_player.pitch_scale = randf_range(0.8, 1.4)
-		hurt_player.play()
+	hurt_player.pitch_scale = randf_range(0.8, 1.4)
+	hurt_player.play()
+	sprite_2d.modulate = Color.RED
+	await get_tree().create_timer(0.15).timeout
+	sprite_2d.modulate = Color.WHITE
 
 func _physics_process(delta):
 	shoot_cooldown -= delta
